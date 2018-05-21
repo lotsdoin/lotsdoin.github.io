@@ -1,0 +1,30 @@
+---
+layout: default
+category: about
+title: lotsd 's homepage
+---
+
+<section class="about-me inner">
+  <blockquote>
+  你的最大的优点, 可能也是你最大的缺点; 最快地学习, 可能恰恰是看似很慢地思考.
+  </blockquote>
+
+  <p>
+  </p>
+</section>
+
+<section class="inner">
+  <div class="post-recents-in-index">
+    <strong>Recent blog posts</strong>
+  </div>
+  <blockquote>
+    <ul>
+      {% for post in site.posts limit:3 %}
+      <li class="post-list-in-index">
+      <small class="post-list-date-in-index">{{ post.date | date_to_string }}</small><a  href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </blockquote>
+</section>
+
