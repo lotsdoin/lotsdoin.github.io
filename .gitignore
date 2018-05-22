@@ -1,4 +1,5 @@
 .sass-cache
-
+_site
+.jekyll_metadata
 # Linux trash bark
 .Trashes
