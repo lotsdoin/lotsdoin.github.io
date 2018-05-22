@@ -1,16 +1,35 @@
 ---
-layout: default
+layout: simplePage
 title: Donate
+description: 向 Lots Doin 捐赠
 ---
 <link rel="stylesheet" href="../css/blog.css">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/site.css">
 <div class="subheader-container">
 <div class = "inner">
 <nav class = "sub-nav">
+    <a class="{% if page.category == 'blog' %} selected {% endif %}" href="/blog/">Home</a>
+    <a class="{% if page.category == 'categories' %} selected {% endif %}" href="/blog/categories.html">Categories</a>
+    <a class="{% if page.category == 'donate' %} selected {% endif %}" href="/blog/donate.html">Donate</a>
+
+</nav>
+</div>
+</div>
+<style>
+img[alt=drawing] { width: 35%; }
+</style>
 <section class="inner">
+<div id="content">
   <div class="pidex">
     <blockquote>
-      <p>对你有帮助, 是我的荣幸.</p>
+      <p>如果博文对你有帮助, 你可以打赏.</p>
     </blockquote>
   </div>
+<h2 id="支付宝扫码">支付宝扫码</h2>
+<div class="post">
+<img src="../images/payimg/alipayimg.jpg" alt="drawing">
+</div>
+</div>
 </section>
 
