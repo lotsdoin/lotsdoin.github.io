@@ -1,54 +1,34 @@
 <!DOCTYPE html>
-<html lang="{% if page.language == nil %}en{% else %}{{ page.language }}{% endif %}">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
-    {{ page.title }}
-    {% if page.category == 'blog' and page.url != '/blog/index.html' %}
-    - Lots Doin
-    {% endif %}
+    lotsd 's homepage
+    
   </title>
   <link rel="stylesheet" href="../css/site.css">
   <link href="//cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-  {% if page.description %}<meta name="description" content="{{page.description}}" />{% endif %}
+  
   <link href="/blog/feed.xml" type="application/rss+xml" rel="alternate" title="Latest 10 blog posts (atom)" />
 
-  {% if page.url == '/index.html' %}
-    <link rel="alternate" hreflang="en" href="/" />
-  {% elsif page.url == '/cn/index.html' %}
-    <link rel="alternate" hreflang="cn" href="/cn/" />
-  {% endif %}
+  
 
-  {{ page.extra_head }}
+  
 
-  {% if page.category == 'blog' %}
-    {% if page.photo %}
-      <meta property="og:image" content="/images/posts/{{ page.photo }}" />
-    {% endif %}
-  {% endif %}
+  
 </head>
 
 <body>
   <div class="header-container">
     <header class="inner">
-      {% if page.url == '/cn/' %}
+      
       <nav>
-        <a class="{% if page.category == 'blog' %} selected {% endif %}" href="/blog/">博客</a>
-        <a href="https://github.com/lotsodoin">Github</a>
-      </nav>
-      {% elsif page.url == '/cn/project' %}
-      <nav>
-        <a class="{% if page.category == 'blog' %} selected {% endif %}" href="/blog/">博客</a>
+        <a class="" href="/blog/">Blog</a>
         <a href="https://github.com/lotsdoin">GitHub</a>
       </nav>
-      {% else %}
-      <nav>
-        <a class="{% if page.category == 'blog' %} selected {% endif %}" href="/blog/">Blog</a>
-        <a href="https://github.com/lotsdoin">GitHub</a>
-      </nav>
-	  {% endif %}
+	  
 
       <div class="pull-right right logo">
         <a href="http://lotsdoin.github.io"><img class="avatar" src="../images/mex2.jpeg" alt="My profile picture" /></a>
@@ -58,7 +38,31 @@
     <div class="clear"></div>
   </div>
 
-  {{ content }}
+  <section class="about-me inner">
+  <blockquote>
+  你的最大的优点, 可能也是你最大的缺点; 最快地学习, 可能恰恰是看似很慢地思考.
+  </blockquote>
+
+  <p>
+  </p>
+</section>
+
+<section class="inner">
+  <div class="post-recents-in-index">
+    <strong>Recent blog posts</strong>
+  </div>
+  <blockquote>
+    <ul>
+      
+      <li class="post-list-in-index">
+      <small class="post-list-date-in-index">15 May 2018</small><a  href="https://github.com/lotsdoin.io/blog/write-blog.html" title="如何写博客">如何写博客</a>
+      </li>
+      
+    </ul>
+  </blockquote>
+</section>
+
+
   <!--<div class="separator"></div>-->
 
   <footer>
