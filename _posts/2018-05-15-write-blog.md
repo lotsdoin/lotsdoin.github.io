@@ -1,11 +1,9 @@
 ---
 layout: post
-title: 如何写博客
+title: 如何写博客?
 categories: [博客]
 tags: 博客
 ---
-
-# 如何写好博客?
 
 ## 明确自己为什么写博客
 
