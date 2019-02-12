@@ -1,7 +1,8 @@
 ---
+layout: post
 title: YouCompleteMe
-date: 2017-07-08
 ---
+
 
 YouCompleteMe
 =============

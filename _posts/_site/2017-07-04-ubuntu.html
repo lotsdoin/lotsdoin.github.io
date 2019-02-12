@@ -1,0 +1,625 @@
+<h1 id="ubuntu-1604-lst">Ubuntu 16.04 LST</h1>
+
+<h2 id="build-ubuntu">Build ubuntu</h2>
+
+<h3 id="change-sources">Change sources</h3>
+
+<p><code class="highlighter-rouge">sudo vim /etc/apt/sources.list</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># deb cdrom:[Ubuntu 16.04 LTS _Xenial Xerus_ - Release amd64 (20160420.1)]/ xenial main restricted</span>
+deb-src http://archive.ubuntu.com/ubuntu xenial main restricted <span class="c">#Added by software-properties</span>
+deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted multiverse universe <span class="c">#Added by software-properties</span>
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted multiverse universe <span class="c">#Added by software-properties</span>
+deb http://mirrors.aliyun.com/ubuntu/ xenial universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse <span class="c">#Added by software-properties</span>
+deb http://archive.canonical.com/ubuntu xenial partner
+deb-src http://archive.canonical.com/ubuntu xenial partner
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted multiverse universe <span class="c">#Added by software-properties</span>
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security multiverse
+</code></pre></div></div>
+<p><code class="highlighter-rouge">sudo apt-get update</code></p>
+
+<p><code class="highlighter-rouge">or</code>
+choose <code class="highlighter-rouge">http://mirrors.aliyun.com/ubuntu</code> in <code class="highlighter-rouge">system seting / software and update</code></p>
+
+<h3 id="how-to-install-in-ubuntu">How to install in ubuntu</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>package-name <span class="nt">-y</span> <span class="c"># 默认为 yes</span>
+<span class="c"># deb 包安装 &amp; 卸载</span>
+<span class="nv">$ </span><span class="nb">sudo </span>dpkg <span class="nt">-i</span> xxx.deb
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-f</span> <span class="c"># 安装依赖</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get autoclean
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get autoremove
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get remove <span class="nt">--purge</span> package-name <span class="c"># 完全卸载</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install</span> ./xxx.deb
+<span class="c"># 常见解压文件命令</span>
+<span class="nv">$ </span><span class="k">*</span>.tar               : <span class="nb">tar</span> <span class="nt">-xvf</span>
+<span class="nv">$ </span><span class="k">*</span>.gz                : <span class="nb">gzip</span> <span class="nt">-d</span> or <span class="nb">gunzip</span>
+<span class="nv">$ </span><span class="k">*</span>.tar.gz or <span class="k">*</span>.tgz   : <span class="nb">tar</span> <span class="nt">-xzf</span>
+<span class="nv">$ </span><span class="k">*</span>.bz2               : bzip2 <span class="nt">-d</span> or bunzip2
+<span class="nv">$ </span><span class="k">*</span>.tar.bz2           : <span class="nb">tar</span> <span class="nt">-xjf</span>
+<span class="nv">$ </span><span class="k">*</span>.Z                 : uncompress
+<span class="nv">$ </span><span class="k">*</span>.tar.Z             : <span class="nb">tar</span> <span class="nt">-xZf</span>
+<span class="nv">$ </span><span class="k">*</span>.rar               : unrar e
+<span class="nv">$ </span><span class="k">*</span>.zip               : unzip
+</code></pre></div></div>
+
+<h3 id="install-albert">Install Albert</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>add-apt-repository ppa:nilarimogard/webupd8
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get update
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>albert
+
+</code></pre></div></div>
+
+<h3 id="git">Git</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>git
+<span class="nv">$ </span>git config <span class="nt">--global</span> user.name <span class="s2">"lotsdoin"</span>
+<span class="nv">$ </span>git config <span class="nt">--global</span> user.email <span class="s2">"lotsdoin@gmail.com"</span>
+<span class="nv">$ </span>ssh-keygen <span class="nt">-t</span> rsa C <span class="s2">"lotsdoin@gmail.com"</span>
+<span class="nv">$ </span><span class="nb">eval</span> <span class="s2">"(</span><span class="nv">$ssh</span><span class="s2">-agent -s)"</span> <span class="c"># use ssh-agent</span>
+Agent pid 14051
+<span class="nv">$ </span>ssh-add ~/.ssh/id_rsa
+Identity added: /home/lotsd/.ssh/id_rsa <span class="o">(</span>/home/lotsd/.ssh/id_rsa<span class="o">)</span>
+<span class="nv">$ </span>ssh <span class="nt">-T</span> git@github.com <span class="c"># check it</span>
+</code></pre></div></div>
+
+<h3 id="remove-amazon-link">Remove Amazon link</h3>
+<p><code class="highlighter-rouge">sudo apt-get remove unity-webapps-common</code></p>
+
+<h3 id="install-java">Install Java</h3>
+
+<h4 id="install-oracle-java">Install Oracle Java</h4>
+
+<p><a href="http://www.oracle.com/technetwork/cn/java/javase/downloads/jdk8-downloads-2133151-zhs.html">Oracle</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.tar.gz<span class="sb">`</span>
+<span class="nb">tar</span> <span class="nt">-zxvf</span> jdk-8u111-linux-x64.tar.gz
+<span class="nb">mkdir</span> /usr/lib/jdk
+<span class="nb">mv </span>jdk-8u111  /usr/lib/jdk/jdk1.8
+vim /etc/profile <span class="c"># all users</span>
+<span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jdk/jdk1.8
+<span class="nb">export </span><span class="nv">JRE_HOME</span><span class="o">=</span><span class="k">${</span><span class="nv">JAVA_HOME</span><span class="k">}</span>/jre
+<span class="nb">export </span><span class="nv">CLASSPATH</span><span class="o">=</span>.:<span class="k">${</span><span class="nv">JAVA_HOME</span><span class="k">}</span>/lib:<span class="k">${</span><span class="nv">JRE_HOME</span><span class="k">}</span>/lib
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>.:<span class="k">${</span><span class="nv">JAVA_HOME</span><span class="k">}</span>/bin:<span class="nv">$PATH</span>
+vim ~/.bashrc <span class="c"># local user</span>
+<span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jdk/jdk1.8
+<span class="nb">export </span><span class="nv">JRE_HOME</span><span class="o">=</span><span class="k">${</span><span class="nv">JAVA_HOME</span><span class="k">}</span>/jre
+<span class="nb">export </span><span class="nv">CLASSPATH</span><span class="o">=</span>.:<span class="k">${</span><span class="nv">JAVA_HOME</span><span class="k">}</span>/lib:<span class="k">${</span><span class="nv">JRE_HOME</span><span class="k">}</span>/lib
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>.:<span class="k">${</span><span class="nv">JAVA_HOME</span><span class="k">}</span>/bin:<span class="nv">$PATH</span>
+<span class="nb">source</span> /etc/profile  or  <span class="nb">source</span> ~/.bashrc <span class="c"># work now.</span>
+java <span class="nt">-version</span> <span class="c"># check it.</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>add-apt-repository ppa:webupd8team/java
+<span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>oracle-java8-installer
+</code></pre></div></div>
+<h3 id="install-sublime-text-3">Install Sublime Text 3</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>add-apt-repository ppa:webupd8team/sublime-text-3    
+<span class="nb">sudo </span>apt-get update    
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>sublime-text 
+</code></pre></div></div>
+<h3 id="install-codeblcoks-1601">Install Code::Blcoks 16.01</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get Install build-essential
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>gdb
+<span class="nv">$ </span><span class="nb">sudo </span>add-apt-repository ppa:damien-moore/codeblocks-stable  
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get update  
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>codeblocks 
+<span class="c">#将会同时安装下列软件：  </span>
+<span class="c">#codeblocks-common libcodeblocks0 libwxbase2.8-0 libwxgtk2.8-0  </span>
+<span class="c">#建议安装：  </span>
+<span class="c">#libwxgtk2.8-dev | libwxgtk3.0-dev wx-common codeblocks-contrib   </span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>codeblocks-dbg  
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>codeblocks-contrib  
+<span class="c"># //将会同时安装下列软件：  </span>
+<span class="c"># //cccc codeblocks-contrib-common codeblocks-libwxcontrib0 cppcheck cscope  </span>
+<span class="c"># //gamin libgamin0 libtinyxml2-2v5 libwxsmithlib0 python-chardet  </span>
+<span class="c"># //python-pkg-resources python-pygments valgrind  </span>
+<span class="c"># 建议安装：  </span>
+<span class="c"># //cscope-el python-setuptools ttf-bitstream-vera valgrind-dbg kcachegrind  </span>
+<span class="c"># //alleyoop valkyrie   </span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>valgrind-dbg  
+<span class="c"># //Valgrind 用来探测内存泄露  </span>
+
+<span class="c"># wxWindgets 图形界面库</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>libwxbase3.0  
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>libwxbase3.0-dev  
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>libwxgtk3.0-0  
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>libwxgtk3.0-dev  
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>wx-common  
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>wx3.0-headers  
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>wx3.0-i18n  
+</code></pre></div></div>
+<dl>
+  <dt>ref</dt>
+  <dd>
+    <ul>
+      <li><a href="http://blog.csdn.net/left_coast/article/details/52159762">CSDN</a></li>
+    </ul>
+  </dd>
+</dl>
+
+<h3 id="install-axel-like-wget">Install axel (like wget)</h3>
+
+<p><code class="highlighter-rouge">sudo apt-get install axel</code></p>
+
+<h3 id="install-cmake-and-qt-creator">Install CMake and Qt Creator</h3>
+<p><code class="highlighter-rouge">sudo apt-get Install cmake qtcreator</code></p>
+
+<h3 id="install-lnav-review-log">Install lnav (review log)</h3>
+
+<p><code class="highlighter-rouge">sudo apt-get Install lnav</code></p>
+
+<h3 id="install-unrar">Install unrar</h3>
+
+<p><code class="highlighter-rouge">sudo apt-get Install unrar</code></p>
+
+<h3 id="ubuntu-1604-l2tp">Ubuntu 16.04 L2TP</h3>
+
+<p>long long age,use <code class="highlighter-rouge">sudo apt-get Install l2tp-ipsec-vpn</code>,but 
+now Ubuntu 16.04 remove it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>intltool libtool network-manager-dev libnm-util-dev libnm-glib-dev libnm-glib-vpn-dev libnm-gtk-dev libnm-dev libnma-dev ppp-dev libdbus-glib-1-dev libsecret-1-dev libgtk-3-dev libglib2.0-dev xl2tpd strongswan
+
+git clone https://github.com/nm-l2tp/network-manager-l2tp.git    
+<span class="nb">cd </span>network-manager-l2tp    
+autoreconf <span class="nt">-fi</span>    
+intltoolize 
+
+./configure <span class="se">\ </span> 
+  <span class="nt">--disable-static</span> <span class="nt">--prefix</span><span class="o">=</span>/usr <span class="se">\ </span> 
+  <span class="nt">--sysconfdir</span><span class="o">=</span>/etc <span class="nt">--libdir</span><span class="o">=</span>/usr/lib/x86_64-linux-gnu <span class="se">\ </span> 
+  <span class="nt">--libexecdir</span><span class="o">=</span>/usr/lib/NetworkManager <span class="se">\ </span> 
+  <span class="nt">--localstatedir</span><span class="o">=</span>/var <span class="se">\ </span> 
+  <span class="nt">--with-pppd-plugin-dir</span><span class="o">=</span>/usr/lib/pppd/2.4.7  
+
+make    
+<span class="nb">sudo </span>make <span class="nb">install
+
+sudo </span>apparmor_parser <span class="nt">-R</span> /etc/apparmor.d/usr.lib.ipsec.charon    
+<span class="nb">sudo </span>apparmor_parser <span class="nt">-R</span> /etc/apparmor.d/usr.lib.ipsec.stroke
+
+<span class="nb">sudo </span>apt remove xl2tpd    
+<span class="nb">sudo </span>apt <span class="nb">install </span>libpcap0.8-dev  
+
+wget https://github.com/xelerance/xl2tpd/archive/v1.3.6/xl2tpd-1.3.6.tar.gz    
+<span class="nb">tar </span>xvzf xl2tpd-1.3.6.tar.gz    
+<span class="nb">cd </span>xl2tpd-1.3.6    
+make    
+<span class="nb">sudo </span>make <span class="nb">install</span>  
+</code></pre></div></div>
+
+<p>IPsec add <code class="highlighter-rouge">Pre-shared key</code></p>
+
+<h3 id="install-yaheiconsolas">Install YaHeiConsolas</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://www.mycode.net.cn/wp-content/uploads/2015/07/YaHeiConsolas.tar.gz
+<span class="nb">tar</span> <span class="nt">-zxvf</span> YaHeiConsolas.tar.gz
+<span class="nb">sudo mkdir</span> <span class="nt">-p</span> /usr/share/fonts/vista
+<span class="nb">sudo cp </span>YaHeiConsolas.ttf /usr/share/fonts/vista/
+<span class="nb">sudo chmod </span>644 /usr/share/fonts/vista/<span class="k">*</span>.ttf
+<span class="nb">cd</span> /usr/share/fonts/vista/
+<span class="nb">sudo </span>mkfontscale <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>mkfontdir <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>fc-cache <span class="nt">-fv</span> <span class="c"># refresh and install</span>
+</code></pre></div></div>
+<p>and download unity-tweak-tool like <code class="highlighter-rouge">sudo apt-get install unity-tweak-tool</code> change font .</p>
+
+<h3 id="flatabulous-theme">Flatabulous theme</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>add-apt-repository ppa:noobslab/themes
+<span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>flatabulous-theme
+</code></pre></div></div>
+<p>and icons</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>add-apt-repository ppa:noobslab/icons
+<span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>ultra-flat-icons
+</code></pre></div></div>
+
+<h3 id="compile-vim-by-ubuntu">Compile vim by Ubuntu</h3>
+
+<h4 id="install-lib">Install lib</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>libncurses5-dev libgnome2-dev libgnomeui-dev <span class="se">\</span>
+    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev <span class="se">\</span>
+    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev <span class="se">\</span>
+    python3-dev ruby-dev lua5.1 lua5.1-dev git
+</code></pre></div></div>
+<h4 id="remove-old-vim">Remove old vim</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span> | <span class="nb">grep </span>vim
+<span class="nb">sudo </span>dpkg <span class="nt">-p</span> vim vim-common vim-run
+</code></pre></div></div>
+
+<h4 id="download-vim-and-install">Download vim and install</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/vim/vim.git
+<span class="nb">cd </span>vim
+<span class="c"># complie with python2</span>
+./configure <span class="nt">--with-features</span><span class="o">=</span>huge <span class="se">\</span>
+            <span class="nt">--enable-multibyte</span> <span class="se">\</span>
+            <span class="nt">--enable-rubyinterp</span> <span class="se">\</span>
+            <span class="nt">--enable-pythoninterp</span> <span class="se">\</span>
+            <span class="nt">--with-python-config-dir</span><span class="o">=</span>/usr/lib/python2.7/config-x86_64-linux-gnu <span class="se">\</span>
+            <span class="nt">--enable-perlinterp</span> <span class="se">\</span>
+            <span class="nt">--enable-luainterp</span> <span class="se">\</span>
+            <span class="nt">--enable-gui</span><span class="o">=</span>gtk2 <span class="nt">--enable-cscope</span> <span class="nt">--prefix</span><span class="o">=</span>/usr
+
+<span class="c"># complie with python3</span>
+./configure <span class="nt">--with-features</span><span class="o">=</span>huge <span class="se">\</span>
+            <span class="nt">--enable-multibyte</span> <span class="se">\</span>
+            <span class="nt">--enable-rubyinterp</span> <span class="se">\</span>
+            <span class="nt">--enable-python3interp</span> <span class="se">\</span>
+            <span class="nt">--with-python-config-dir</span><span class="o">=</span>/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu <span class="se">\</span>
+            <span class="nt">--enable-perlinterp</span> <span class="se">\</span>
+            <span class="nt">--enable-luainterp</span> <span class="se">\</span>
+            <span class="nt">--enable-gui</span><span class="o">=</span>gtk2 <span class="nt">--enable-cscope</span> <span class="nt">--prefix</span><span class="o">=</span>/usr
+
+make <span class="nv">VIMRUNTIMEDIR</span><span class="o">=</span>/usr/share/vim/vim80
+<span class="nb">sudo </span>make <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>use <code class="highlighter-rouge">checkinstall</code> change tool compile by self to <code class="highlighter-rouge">deb</code> package, it is easy to remove it
+like <code class="highlighter-rouge">sudo dpkg -P vim</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>checkinstall
+<span class="nb">cd </span>vim
+<span class="nb">sudo </span>checkinstall
+</code></pre></div></div>
+
+<h4 id="set-vim-as-default-editor">Set vim as default editor</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/editor editor /usr/bin/vim 1
+<span class="nb">sudo </span>update-alternatives <span class="nt">--set</span> editor /usr/bin/vim
+<span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/vi vi /usr/bin/vim 1
+<span class="nb">sudo </span>update-alternatives <span class="nt">--set</span> vi /usr/bin/vim
+</code></pre></div></div>
+<h3 id="install-uget">Install uGet</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>add-apt-repository ppa:t-tujikawa/ppa 
+<span class="nb">sudo </span>apt-get update 
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>uget 
+</code></pre></div></div>
+
+<h3 id="uninstall-ppa">Uninstall ppa</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>add-apt-repository <span class="nt">--remove</span> ppa:t-tujikawa/ppa
+<span class="nb">sudo </span>ppa-purge ppa:t-tujikawa/ppa
+</code></pre></div></div>
+<h3 id="install-wine">Install wine</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1、安装源
+      <span class="nb">sudo </span>add-apt-repository ppa:wine/wine-builds
+      <span class="nb">sudo </span>apt-get update
+2、安装wine
+     <span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">--install-recommends</span> wine-staging
+     <span class="nb">sudo </span>apt-get <span class="nb">install </span>winehq-staging
+3、卸载wine
+     1<span class="o">)</span>.卸载wine主程序，在终端里输入：
+       <span class="nb">sudo </span>apt-get remove <span class="nt">--purge</span> wine
+     2<span class="o">)</span>.然后删除wine的目录文件：
+       <span class="nb">rm</span> <span class="nt">-r</span> ~/.wine
+     3<span class="o">)</span>.卸载残留不用的软件包：
+       <span class="nb">sudo </span>apt-get autoremove
+</code></pre></div></div>
+<h3 id="install-pptp-vpn-server">Install pptp vpn server</h3>
+
+<p>You can configure pptp VPN server and client from the terminal using these steps:
+VPN Server Setup:</p>
+
+<p>Install and update the VPN server and client packages:</p>
+
+<p><code class="highlighter-rouge">$ sudo apt-get install pptpd ppp pptp-linux</code></p>
+
+<p>Four files has to be configured for the server:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/pptpd.conf
+/etc/ppp/pptpd-options
+/etc/ppp/options
+/etc/chat-secrets)
+</code></pre></div></div>
+
+<p>/etc/pptpd.conf:</p>
+
+<p>option /etc/ppp/pptpd-options
+logwtmp
+localip 192.168.23.20
+remoteip 192.168.23.30-39</p>
+
+<p>/etc/ppp/pptpd-options:</p>
+
+<p>name pptpd
+refuse-pap
+refuse-chap
+refuse-mschap
+require-mschap-v2
+require-mppe-128
+proxyarp
+nodefaultroute
+lock
+nobsdcomp
+noipx ## you don’t need IPX
+mtu 1490 ## may help your linux client from disconnecting
+mru 1490 ## may help your linux client from disconnecting</p>
+
+<p>/etc/ppp/options:</p>
+
+<p>lock</p>
+
+<p>/etc/ppp/chap-secrets:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td># Secrets for authentication using CHAP</td>
+    </tr>
+    <tr>
+      <td># client    server  secret  IP addresses</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>[username]  pptpd [userpass] *</p>
+
+<p>(The [username] and [userpass] are entries without the brackets.)</p>
+
+<p>Now restart the server with:</p>
+
+<p>$ sudo service pptpd restart</p>
+
+<p>VPN Client Setup:</p>
+
+<p>Four configuration files are involved:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/ppp/peers/myvpn
+/etc/ppp/options.pptp
+/etc/ppp/chap-secrets
+/etc/ppp/ip-up.local
+</code></pre></div></div>
+
+<p>/etc/ppp/peers/myvpn:</p>
+
+<p>| # replace the bracket paramters with the host name of the VPN server and VPN user
+remotename myvpn
+linkname myvpn
+ipparam myvpn
+pty “pptp [vpn server] –nolaunchpppd “
+name [username]
+usepeerdns
+require-mppe
+refuse-eap
+noauth</p>
+
+<p>| # adopt defaults from the pptp-linux package
+file /etc/ppp/options.pptp</p>
+
+<p>/etc/ppp/options.pptp:</p>
+
+<p>lock
+noauth
+refuse-pap
+refuse-eap
+refuse-chap
+refuse-mschap
+nobsdcomp
+nodeflate</p>
+
+<p>/etc/ppp/chap-secrets:</p>
+
+<p>| # Secrets for authentication using CHAP
+| # client    server  secret  IP addresses
+username myvpn password *</p>
+
+<p>/etc/ppp/ip-up.local:</p>
+
+<p>| #!/bin/sh
+network=<code class="highlighter-rouge">echo $IPREMOTE | awk -F\. '{print $1"."$2"."$3".0/24"}'</code>
+route add -net $network $IFNAME</p>
+
+<p>Connect the VPN client with:</p>
+
+<p>$ sudo pon myvpn</p>
+
+<p>End the VPN connection with:</p>
+
+<p>$ sudo poff myvpn</p>
+
+<h2 id="ubuntu-tips">Ubuntu tips</h2>
+
+<dl>
+  <dt>search</dt>
+  <dd>
+    <ul>
+      <li>whereis document</li>
+      <li>find path -option document
+        <ul>
+          <li>eg: find ~ -name .vimrc</li>
+        </ul>
+      </li>
+      <li>locate document</li>
+    </ul>
+  </dd>
+</dl>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>lspci <span class="c"># 驱动信息</span>
+00:00.0 Host bridge: Intel Corporation Xeon E3-1200 v3/4th Gen Core Processor DRAM Controller <span class="o">(</span>rev 06<span class="o">)</span>
+00:01.0 PCI bridge: Intel Corporation Xeon E3-1200 v3/4th Gen Core Processor PCI Express x16 Controller <span class="o">(</span>rev 06<span class="o">)</span>
+00:02.0 VGA compatible controller: Intel Corporation 4th Gen Core Processor Integrated Graphics Controller <span class="o">(</span>rev 06<span class="o">)</span>
+00:03.0 Audio device: Intel Corporation Xeon E3-1200 v3/4th Gen Core Processor HD Audio Controller <span class="o">(</span>rev 06<span class="o">)</span>
+00:14.0 USB controller: Intel Corporation 8 Series/C220 Series Chipset Family USB xHCI <span class="o">(</span>rev 05<span class="o">)</span>
+00:16.0 Communication controller: Intel Corporation 8 Series/C220 Series Chipset Family MEI Controller <span class="c">#1 (rev 04)</span>
+00:1a.0 USB controller: Intel Corporation 8 Series/C220 Series Chipset Family USB EHCI <span class="c">#2 (rev 05)</span>
+00:1b.0 Audio device: Intel Corporation 8 Series/C220 Series Chipset High Definition Audio Controller <span class="o">(</span>rev 05<span class="o">)</span>
+00:1c.0 PCI bridge: Intel Corporation 8 Series/C220 Series Chipset Family PCI Express Root Port <span class="c">#4 (rev d5)</span>
+00:1c.4 PCI bridge: Intel Corporation 8 Series/C220 Series Chipset Family PCI Express Root Port <span class="c">#5 (rev d5)</span>
+00:1d.0 USB controller: Intel Corporation 8 Series/C220 Series Chipset Family USB EHCI <span class="c">#1 (rev 05)</span>
+00:1f.0 ISA bridge: Intel Corporation HM86 Express LPC Controller <span class="o">(</span>rev 05<span class="o">)</span>
+00:1f.2 SATA controller: Intel Corporation 8 Series/C220 Series Chipset Family 6-port SATA Controller 1 <span class="o">[</span>AHCI mode] <span class="o">(</span>rev 05<span class="o">)</span>
+00:1f.3 SMBus: Intel Corporation 8 Series/C220 Series Chipset Family SMBus Controller <span class="o">(</span>rev 05<span class="o">)</span>
+01:00.0 3D controller: NVIDIA Corporation GM107M <span class="o">[</span>GeForce GTX 850M] <span class="o">(</span>rev a2<span class="o">)</span>
+07:00.0 Ethernet controller: Qualcomm Atheros QCA8171 Gigabit Ethernet <span class="o">(</span>rev 10<span class="o">)</span>
+08:00.0 Network controller: Broadcom Corporation BCM43142 802.11b/g/n <span class="o">(</span>rev 01<span class="o">)</span>
+</code></pre></div></div>
+<h3 id="solve-the-wireless">Solve the Wireless</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>bcmwl-kernel-source
+<span class="nv">$ </span>无线网卡是BCM4312 802.11b/g
+<span class="c"># 以下是我的网卡信息以及网卡安装</span>
+08:00.0 Network controller: Broadcom Corporation BCM43142 802.11b/g/n <span class="o">(</span>rev 01<span class="o">)</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>Linux-headers<span class="k">$(</span><span class="nb">uname</span> <span class="nt">-r</span> | <span class="nb">grep</span> <span class="nt">-Po</span> <span class="s2">"</span><span class="se">\-</span><span class="s2">[a-z].*"</span><span class="k">)</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>build-essential dkms
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>dpkg
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>bcmwl-kernel-source
+</code></pre></div></div>
+<h3 id="添加开机自启动">添加开机自启动</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>gnome-session-properties
+</code></pre></div></div>
+
+<h3 id="ubuntu-目录结构">Ubuntu 目录结构</h3>
+<p>|  /bin: bin是Binary的缩写。存放系统中最常用的可执行文件（二进制）。
+| /boot: 这里存放的是Linux内核和系统启动文件，包括Grub、lilo启动器程序。
+| /dev: dev是Device(设备)的缩写。该目录存放的是linux的外部设备，如硬盘、分区、键盘、鼠标、usb等。
+| /etc: 这个目录用来存放所有的系统管理所需要的配置文件和子目录，如passwd、hostname等。
+| /home: 用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。
+| /lib: 存放共享的库文件，包含许多被/bin和/sbin中程序使用的库文件。
+| /lost+found: 磁盘修复文件,这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些零散文件。
+| /media: ubuntu系统自动挂载的光驱、usb设备，存放临时读入的文件。
+| /mnt: 作为被挂载的文件系统得挂载点。
+| /opt: 作为可选文件和程序的存放目录，主要被第三方开发者用来简易安装和卸载他们的软件。
+| /proc: 这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。这里存放所有标志为文件的进程，比较cpuinfo存放cpu当前工作状态的数据。
+| /root: 该目录为系统管理员，也称作超级权限者的用户主目录。
+| /sbin: s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序，如系统管理、目录查询等关键命令文件。
+| / srv: 存放系统所提供的服务数据。
+| /sys: 系统设备和文件层次结构，并向用户程序提供详细的内核数据信息。
+| /tmp: 这个目录是用来存放一些临时文件的，所有用户对此目录都有读写权限。
+| /usr: 存放与系统用户有关的文件和目录。
+| /usr/bin/应用程序
+| /usr/sbin/管理员应用程序
+| /usr/lib/应用程序文件
+| /usr/share/应用程序资料文件
+| /usr/src/应用程序源代码
+| /usr/local:这里主要存放那些手动安装的软件，即不是通过“新立得”或apt-get安装的软件。它和/usr目录具有相类似的目录结构。让软件包管理器来管理/usr目录，而把自定义的脚本（scripts）放到/usr/local目录下面
+| /usr/local/soft/用户程序
+| /usr/temp/临时文件
+| /var:动态数据,长度可变的文件，尤其是些记录数据，如日志文件和打印机文件。
+| /var/cache: 应用程序缓存目录；
+| /var/crash: 系统错误信息；
+| /var/games: 游戏数据；
+| /var/log: 日志文件；
+| /var/mail: 电子邮件；
+| /var/tmp: 临时文件目录；
+| /temp/临时文件
+|
+|
+| 常用系统服务:
+| acpi-support 高级电源管理支持
+| acpid acpi守护程序.这两个用于电源管理，非常重要
+| alsa 声音子系统
+| alsa-utils
+| anacron cron的子系统，将系统关闭期间的计划任务，在下一次系统运行时执行。
+| apmd acpi的扩展
+| atd 类似于cron的任务调度系统。建议关闭
+| binfmt-support 核心支持其他二进制的文件格式。建议开启
+| bluez-utiles 蓝牙设备支持
+| bootlogd 启动日志。开启它
+| cron 任务调度系统，建议开启
+| cupsys 打印机子系统。
+| dbus 消息总线系统(message bus system)。非常重要
+| dns-clean 使用拨号连接时，清除dns信息。
+| evms 企业卷管理系统（Enterprise Volumn Management system）
+| fetchmail 邮件用户代理，用于收取邮件
+| gdm gnome登录和桌面管理器。
+| gdomap
+| gpm 终端中的鼠标支持。
+| halt 别动它。
+| hdparm 调整硬盘的脚本，配置文件为“/etc/hdparm.conf”。
+| hibernate 系统休眠
+| hotkey-setup 笔记本功能键支持。支持类型包括： HP, Acer, ASUS, Sony, Dell, 和IBM。
+| hotplug and hotplug-net 即插即用支持，比较复杂，建议不要动它。
+| hplip HP打印机和图形子系统
+| ifrename 网络接口重命名脚本。如果您有十块网卡，您应该开启它
+| inetd 在文件“/etc/inetd.conf”中，注释掉所有你不需要的服务。如果该文件不包含任何服务，那关闭它是很安全的。
+| klogd 重要。
+| linux-restricted-modules-common 受限模块支持。“/lib/linux-restricted-modules/”文件夹中的模块为受限模块。例如某些驱动程序，如果您没有使用受限模块，就不需要开启它。
+| lvm 逻辑卷管理系统支持。
+| makedev 创建设备文件，非常重要。
+| mdamd 磁盘阵列
+| module-init-tools 从/etc/modules加载扩展模块，建议开启。
+| networking 网络支持。按“/etc/network/interfaces”文件预设激活网络，非常重要。
+| ntpdate 时间同步服务，建议关闭。
+| pcmcia pcmcia设备支持。
+| powernowd 移动CPU节能支持
+| ppp and ppp-dns 拨号连接
+| readahead 预加载库文件。
+| reboot 别动它。
+| resolvconf 自动配置DNS
+| rmnologin 清除nologin
+| rsync rsync守护程序
+| sendsigs 在重启和关机期间发送信号
+| single 激活单用户模式
+| ssh ssh守护程序。建议开启
+| stop-bootlogd 在2，3，4，5运行级别中停止bootlogd服务
+| sudo 检查sudo状态。重要
+| sysklogd 系统日志
+| udev &amp; udev-mab 用户空间dev文件系统（userspace dev filesystem）。重要
+| umountfs 卸载文件系统
+| urandom 随机数生成器
+| usplash 开机画面支持
+| vbesave 显卡BIOS配置工具。保存显卡的状态
+| xorg-common 设置X服务ICE socket。
+| adjtimex 调整核心时钟的工具
+| dirmngr 证书列表管理工具,和gnupg一起工作。
+| hwtools irqs优化工具
+| libpam-devperm 系统崩溃之后，用于修理设备文件许可的守护程序。
+| lm-sensors 板载传感器支持
+| mdadm-raid 磁盘陈列管理器
+| screen-cleanup 清除开机屏幕的脚本
+| xinetd 管理其他守护进程的一个inetd超级守护程序
+|
+| 全局配置文件:
+| 系统初始化
+| /etc/inittab 运行级别、控制台数量
+| /etc/timezone 时区
+| /etc/inetd.conf 超级进程
+| 文件系统
+| /etc/fstab 开机时挂载的文件系统
+| /etc/mtab 当前挂载的文件系统
+| 用户系统
+| /etc/passwd 用户信息
+| /etc/shadow 用户密码
+| /etc/group 群组信息
+| /etc/gshadow 群组密码
+| /etc/sudoers Sudoer列表（请使用“visudo”命令修改此文件，而不要直接编辑）
+| Shell
+| /etc/shell 可用Shell列表
+| /etc/inputrc ReadLine控件设定
+| /etc/profile 用户首选项
+| /etc/bash.bashrc bash配置文件
+| 系统环境
+| /etc/environment 环境变量
+| /etc/updatedb.conf 文件检索数据库配置信息
+| /etc/issue 发行信息
+| /etc/issue.net
+| /etc/screenrc 屏幕设定
+| 网络
+| /etc/iftab 网卡MAC地址绑定
+| /etc/hosts 主机列表
+| /etc/hostname 主机名
+| /etc/resolv.conf 域名解析服务器地址
+| /etc/network/interfaces 网卡配置文件</p>
+
+<dl>
+  <dt>ref</dt>
+  <dd>
+    <ul>
+      <li><a href="http://blog.csdn.net/poplong/article/details/8259386">CSDN</a></li>
+    </ul>
+  </dd>
+</dl>

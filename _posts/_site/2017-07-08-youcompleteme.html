@@ -1,0 +1,57 @@
+<h1 id="youcompleteme">YouCompleteMe</h1>
+
+<h2 id="install-vundle">Install vundle</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir</span> <span class="nt">-p</span> ~/.vim/bundle
+<span class="nv">$ </span><span class="nb">cd</span> ~/.vim/bundle
+<span class="nv">$ </span>git clone https://github.com/VundleVim/Vundle.vim
+<span class="nv">$ </span><span class="nb">sudo </span>vim ~/.vimrc
+add
+
+<span class="nb">set </span>nocompatible <span class="s2">" be iMproved, required
+filetype off "</span> required
+<span class="s2">" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+"</span> alternatively, pass a path where Vundle should <span class="nb">install </span>plugins
+<span class="s2">"call vundle#begin('~/some/path/here')
+"</span> <span class="nb">let </span>Vundle manage Vundle, required
+Plugin <span class="s1">'VundleVim/Vundle.vim'</span>
+<span class="s2">" All of your Plugins must be added before the following line
+call vundle#end() "</span> required
+filetype plugin indent on <span class="s2">" required
+</span></code></pre></div></div>
+<p>Install 依赖
+———–</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>build-essential cmake
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>python-dev python3-dev
+</code></pre></div></div>
+<p>Install YouCompleteMe repo
+————————-</p>
+
+<p>use PluginInstall install YCM, or <code class="highlighter-rouge">sudo git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/bundle/</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ~/.vim/bundle/YouCompleteMe/
+<span class="nv">$ </span>git submodule update <span class="nt">--init</span> <span class="nt">--recursive</span>
+</code></pre></div></div>
+<p>Compile YouCompleteMe
+———————
+C# support: install Mono and add –omnisharp-completer when calling ./install.py.
+Go support: install Go and add –gocode-completer when calling ./install.py.
+TypeScript support: install Node.js and npm then install the TypeScript SDK with npm install -g typescript.
+JavaScript support: install Node.js and npm and add –tern-completer when calling ./install.py.
+Rust support: install Rust and add –racer-completer when calling ./install.py.</p>
+
+<p>if you stop in download clang-4.0, you can add <code class="highlighter-rouge">--system-libclang</code> when you calling ./install.py.Absolutely, use <code class="highlighter-rouge">sudo apt-get isntall clang</code> install it in your PC.
+It’s my,<code class="highlighter-rouge">sudo ./install.py --clang-completer --gocode-completer  --system-libclang</code>.</p>
+
+<h2 id="config-your-vimrc">Config your .vimrc</h2>
+<p>When you use it after you will get a warning.<code class="highlighter-rouge">still no falgs, no completions yet</code>.
+solve use follow steps.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cp</span> ~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/
+<span class="nv">$ </span><span class="nb">sudo </span>vim ~/.vimrc
+add follow:
+
+<span class="nb">let </span>g:ycm_server_python_interpreter<span class="o">=</span><span class="s1">'/usr/bin/python'</span>
+<span class="nb">let </span>g:ycm_global_ycm_extra_conf<span class="o">=</span><span class="s1">'~/.vim/.ycm_extra_conf.py'</span>
+</code></pre></div></div>

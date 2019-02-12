@@ -1,0 +1,36 @@
+<h1 id="pppoe-server">PPPoE Server</h1>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install PPPoE</span>
+apt-get <span class="nb">install </span>pppoe
+<span class="c">#/etc/ppp/pppoe-server-options</span>
+require-pap
+lcp-echo-interval 10
+lcp-echo-failure 2
+<span class="c"># /etc/ppp/pap-secrets add a line</span>
+<span class="k">****</span>
+<span class="c"># run pppoe server</span>
+/usr/sbin/pppoe-server <span class="nt">-L</span> 10.5.5.1 <span class="nt">-R</span> 10.5.5.10 <span class="nt">-l</span> etch0 <span class="nt">-S</span> yyf
+<span class="nt">-L</span> <span class="nb">set local </span>IP address.
+<span class="nt">-R</span> <span class="nb">set </span>start address of remote IP pool.
+<span class="nt">-S</span> Advertise specified service-name.
+<span class="nt">-l</span> Specify Interface.
+</code></pre></div></div>
+<h2 id="sniff-using-tshark">Sniff using Tshark</h2>
+<ul>
+  <li>sudo tshark -i eth0 -Y “pap.password” -l -T fields -e pap.peer_id -e pap.password
+    <h2 id="autostart">Autostart</h2>
+    <p>```bash
+#/etc/rc.local</p>
+    <h1 id="run-pppoe-server">run pppoe server</h1>
+    <p>/usr/sbin/pppoe-server -L 10.5.5.1 -R 10.5.5.10 -l eth0 -S yyf</p>
+    <h1 id="sniff-from-eth0-and-output-to-paplog">sniff from eth0 and output to pap.log</h1>
+    <p>tshark -i eth0 -Y “pap.password” -l -T fields -e pap.peer_id -e pap.password | tee -a /root/pap.log</p>
+    <h1 id="read-from-paplog-and-send-to-screen">read from pap.log and send to screen</h1>
+    <p>/usr/bin/ruby /root/send_pppoe.rb</p>
+  </li>
+</ul>
+
+<p>```</p>
+<h2 id="questions">Questions</h2>
+<h2 id="knowledge">Knowledge</h2>
+<h2 id="todo">TODO</h2>
+

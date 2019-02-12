@@ -1,3 +1,9 @@
+---
+layout: post
+title: Learn android 
+---
+
+
 # Learn android
 
 ## 创建新工程

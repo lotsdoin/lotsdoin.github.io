@@ -1,7 +1,8 @@
 ---
-title: Programming Idea
-date: 2017-07-01
+layout: post
+title: Programming idea
 ---
+
 
 Programming Idea
 ================

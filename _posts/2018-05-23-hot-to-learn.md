@@ -1,3 +1,9 @@
+---
+layout: post
+title: How to learn
+---
+
+
 # How to learn -认知心理学的理论依据
 
 ## 注意力稳定理论

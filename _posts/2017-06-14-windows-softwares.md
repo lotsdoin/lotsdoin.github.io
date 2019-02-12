@@ -1,7 +1,8 @@
 ---
+layout: post
 title: Windows Softwares
-date: 2017年06月14日 20:53:59
 ---
+
 
 Windows Softwares
 =================
@@ -39,4 +40,43 @@ Windows Softwares
 #. [MinGW Distro - nuwen.net](https://nuwen.net/mingw.html)
 #. [Dism++ | 全新的 Windows 实用工具](http://www.chuyu.me/zh-Hans/index.html)
 #. [Sysinternals Suite | Windows 管理工具](https://technet.microsoft.com/en-us/sysinternals/bb842062)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,0 +1,37 @@
+<h2 id="-实质"><code class="highlighter-rouge">+=</code> 实质</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+<span class="kt">long</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">;</span><span class="c1">//报错</span>
+<span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">);</span>
+<span class="n">x</span> <span class="o">+=</span> <span class="n">y</span><span class="o">;</span><span class="c1">// 相当于 x = (int)(x+y);</span>
+</code></pre></div></div>
+<h2 id="i-and-i"><code class="highlighter-rouge">++i</code> and <code class="highlighter-rouge">i++</code></h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JavaP</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">i</span><span class="o">++;</span>
+        <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">++;</span><span class="c1">// b = 0, a = 1</span>
+        <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="o">++</span><span class="n">a</span><span class="o">;</span><span class="c1">//c = 2, a = 2</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"i: "</span><span class="o">+</span><span class="n">i</span><span class="o">);</span><span class="c1">//1    </span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">++;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">++;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">++;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">++;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"i: "</span><span class="o">+</span><span class="n">i</span><span class="o">);</span><span class="c1">//1</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">j</span><span class="o">+</span><span class="s">" "</span><span class="o">);</span><span class="c1">//0 1 2 3 4 5 6 7 8 9 </span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="o">++</span><span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">j</span><span class="o">+</span><span class="s">" "</span><span class="o">);</span><span class="c1">//0 1 2 3 4 5 6 7 8 9 </span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+</code></pre></div></div>
+<ul>
+  <li><code class="highlighter-rouge">i++</code> 和 <code class="highlighter-rouge">++i</code> 单独使用没有区别，但是赋值时就有区别了。</li>
+  <li>当 <code class="highlighter-rouge">int i = i++</code> 时，i 先赋值后加一。</li>
+  <li>当 <code class="highlighter-rouge">int i = ++i</code> 时，i 先加一后赋值。</li>
+</ul>

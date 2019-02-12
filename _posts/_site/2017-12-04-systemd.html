@@ -1,0 +1,79 @@
+<h1 id="systemd">Systemd</h1>
+
+<ul>
+  <li>systemd is a set of command.
+```bash
+$ sudo /etc/init.d/apache2 start
+$ service apache2 start
+    <h1 id="systemd-instead-of-init-the-pid-of-systemd-is-1-other-processes-are-children"><code class="highlighter-rouge">systemd</code> instead of <code class="highlighter-rouge">init</code>, the PID of <code class="highlighter-rouge">systemd</code> is 1, other processes are children.</h1>
+    <p>$ systemctl –version</p>
+    <h1 id="systemd-229">systemd 229</h1>
+    <h1 id="pam-audit-selinux-ima-apparmor-smack-sysvinit-utmp-libcryptsetup-g-crypt-gnutls-acl-xz--lz4-seccomp-blkid-elfutils-kmod--idn">+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +G# CRYPT +GNUTLS +ACL +XZ -LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD -IDN</h1>
+    <h1 id="重启系统">重启系统</h1>
+    <p>$ sudo systemctl reboot</p>
+  </li>
+</ul>
+
+<h1 id="关闭系统切断电源">关闭系统，切断电源</h1>
+<p>$ sudo systemctl poweroff</p>
+
+<h1 id="cpu停止工作">CPU停止工作</h1>
+<p>$ sudo systemctl halt</p>
+
+<h1 id="暂停系统">暂停系统</h1>
+<p>$ sudo systemctl suspend</p>
+
+<h1 id="让系统进入冬眠状态">让系统进入冬眠状态</h1>
+<p>$ sudo systemctl hibernate</p>
+
+<h1 id="让系统进入交互式休眠状态">让系统进入交互式休眠状态</h1>
+<p>$ sudo systemctl hybrid-sleep</p>
+
+<h1 id="启动进入救援状态单用户状态">启动进入救援状态（单用户状态）</h1>
+<p>$ sudo systemctl rescue</p>
+<h1 id="查看启动耗时">查看启动耗时</h1>
+<p>$ systemd-analyze</p>
+
+<h1 id="查看每个服务的启动耗时">查看每个服务的启动耗时</h1>
+<p>$ systemd-analyze blame</p>
+
+<h1 id="显示瀑布状的启动过程流">显示瀑布状的启动过程流</h1>
+<p>$ systemd-analyze critical-chain</p>
+
+<h1 id="显示指定服务的启动流">显示指定服务的启动流</h1>
+<p>$ systemd-analyze critical-chain atd.service</p>
+
+<h1 id="显示当前主机的信息">显示当前主机的信息</h1>
+<p>$ hostnamectl</p>
+
+<h1 id="设置主机名">设置主机名。</h1>
+<p>$ sudo hostnamectl set-hostname rhel7</p>
+
+<h1 id="查看本地化设置">查看本地化设置</h1>
+<p>$ localectl</p>
+
+<h1 id="设置本地化参数">设置本地化参数。</h1>
+<p>$ sudo localectl set-locale LANG=en_GB.utf8
+$ sudo localectl set-keymap en_GB</p>
+
+<h1 id="查看当前时区设置">查看当前时区设置</h1>
+<p>$ timedatectl</p>
+
+<h1 id="显示所有可用的时区">显示所有可用的时区</h1>
+<p>$ timedatectl list-timezones</p>
+<h1 id="设置当前时区">设置当前时区</h1>
+<p>$ sudo timedatectl set-timezone America/New_York
+$ sudo timedatectl set-time YYYY-MM-DD
+$ sudo timedatectl set-time HH:MM:SS</p>
+
+<h1 id="列出当前session">列出当前session</h1>
+<p>$ loginctl list-sessions</p>
+
+<h1 id="列出当前登录用户">列出当前登录用户</h1>
+<p>$ loginctl list-users</p>
+
+<h1 id="列出显示指定用户的信息">列出显示指定用户的信息</h1>
+<p>$ loginctl show-user ruanyf</p>
+
+<p>```</p>
+

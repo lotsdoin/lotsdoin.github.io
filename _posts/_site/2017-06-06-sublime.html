@@ -1,0 +1,102 @@
+<h1 id="sublime-text-3">Sublime text 3</h1>
+
+<dl>
+  <dt><a href="http://www.sublimetext.com/3">Sublime Text 3</a></dt>
+  <dd>
+    <ul>
+      <li><code class="highlighter-rouge"> Ctrl + '</code> take out Console</li>
+      <li>
+        <p><a href="https://packagecontrol.io/installation#st3">Packagecontrol</a> take it in Console and reboot</p>
+
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">urllib.request</span><span class="p">,</span><span class="n">os</span><span class="p">,</span><span class="n">hashlib</span><span class="p">;</span> <span class="n">h</span> <span class="o">=</span> <span class="s">'df21e130d211cfc94d9b0905775a7c0f'</span> <span class="o">+</span> <span class="s">'1e3d39e33b79698005270310898eea76'</span><span class="p">;</span> <span class="n">pf</span> <span class="o">=</span> <span class="s">'Package Control.sublime-package'</span><span class="p">;</span> <span class="n">ipp</span> <span class="o">=</span> <span class="n">sublime</span><span class="o">.</span><span class="n">installed_packages_path</span><span class="p">();</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">install_opener</span><span class="p">(</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">build_opener</span><span class="p">(</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">ProxyHandler</span><span class="p">())</span> <span class="p">);</span> <span class="n">by</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span> <span class="s">'http://packagecontrol.io/'</span> <span class="o">+</span> <span class="n">pf</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">' '</span><span class="p">,</span> <span class="s">'</span><span class="si">%20</span><span class="s">'</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">();</span> <span class="n">dh</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">by</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">();</span> <span class="k">print</span><span class="p">(</span><span class="s">'Error validating download (got </span><span class="si">%</span><span class="s">s instead of </span><span class="si">%</span><span class="s">s), please try manual install'</span> <span class="o">%</span> <span class="p">(</span><span class="n">dh</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span> <span class="k">if</span> <span class="n">dh</span> <span class="o">!=</span> <span class="n">h</span> <span class="k">else</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">ipp</span><span class="p">,</span> <span class="n">pf</span><span class="p">),</span> <span class="s">'wb'</span> <span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">by</span><span class="p">)</span> 
+</code></pre></div>        </div>
+      </li>
+      <li>Emmet: write HTML and CSS</li>
+    </ul>
+  </dd>
+  <dt>Emment</dt>
+  <dd>
+    <ul>
+      <li><code class="highlighter-rouge">! + Tab</code> or <code class="highlighter-rouge">html:5 + Tab</code> build a HTML fragment.</li>
+      <li>
+        <p><code class="highlighter-rouge">div*4 + Tab</code></p>
+
+        <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;div&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div&gt;&lt;/div&gt;</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">span.menu#name + Tab</code></p>
+
+        <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"menu"</span> <span class="na">id=</span><span class="s">"name"</span><span class="nt">&gt;&lt;/span&gt;</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">span.span${span$$}*5 + Tab</code></p>
+
+        <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"span1"</span><span class="nt">&gt;</span>span01<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"span2"</span><span class="nt">&gt;</span>span02<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"span3"</span><span class="nt">&gt;</span>span03<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"span4"</span><span class="nt">&gt;</span>span04<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"span5"</span><span class="nt">&gt;</span>span05<span class="nt">&lt;/span&gt;</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">section&gt;h2+p*3 + Tab</code></p>
+
+        <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;section&gt;</span>
+      <span class="nt">&lt;h2&gt;&lt;/h2&gt;</span>
+      <span class="nt">&lt;p&gt;&lt;/p&gt;</span>
+      <span class="nt">&lt;p&gt;&lt;/p&gt;</span>
+      <span class="nt">&lt;p&gt;&lt;/p&gt;</span>
+  <span class="nt">&lt;/section&gt;</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">ul&gt;li*2.item&gt;h2+img[src="image-$.jpg"] + Tab</code></p>
+
+        <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;li&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;h2&gt;&lt;/h2&gt;</span>
+          <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"image-1.jpg"</span> <span class="na">alt=</span><span class="s">""</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;h2&gt;&lt;/h2&gt;</span>
+          <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"image-2.jpg"</span> <span class="na">alt=</span><span class="s">""</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </dd>
+  <dt>Useful-tips</dt>
+  <dd>
+    <ul>
+      <li>(Snap Views)分屏显示</li>
+      <li>switchover view or file-switching <code class="highlighter-rouge">Ctrl + p</code></li>
+      <li>Goto Symbols <code class="highlighter-rouge">Ctrl + r</code></li>
+      <li>Multi-Edit(多行编辑) <code class="highlighter-rouge">Ctrl + click</code>
+        <ul>
+          <li>ctrl + d: 选中光标所占的文本，继续操作则会选中下一个相同的文本。</li>
+          <li>ctrl + click: 单击想要编辑的每一个地方，都将创建一个光标</li>
+          <li>ctrl + shift + f 和 alt + enter: 在你的文件查找一个文本，然后将其全部选中</li>
+        </ul>
+      </li>
+      <li>ctrl+l 选中整行，继续操作则继续选择下一行，效果和 shift+↓ 效果一样。</li>
+      <li>:w
+ctrl+shift+l 先选中多行，再按下快捷键，会在每行行尾插入光标，即可同时编辑这些行。</li>
+      <li>ctrl+alt+↑ 或 ctrl+alt+鼠标向上拖动 向上添加多行光标，可同时编辑多行。</li>
+      <li>ctrl+alt+↓ 或 ctrl+alt+鼠标向下拖动 向下添加多行光标，可同时编辑多行。</li>
+      <li>shift+↑ 向上选中多行。</li>
+      <li>shift+↓ 向下选中多行。</li>
+      <li>repalce <code class="highlighter-rouge">Ctrl + h</code></li>
+    </ul>
+  </dd>
+</dl>
+

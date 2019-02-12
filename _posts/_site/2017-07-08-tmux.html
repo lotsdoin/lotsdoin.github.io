@@ -1,0 +1,436 @@
+<h1 id="tmux">Tmux</h1>
+
+<h2 id="install">Install</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/tmux/tmux.git
+<span class="nv">$ </span><span class="nb">cd </span>tmux
+<span class="nv">$ </span>sh autogen.sh
+<span class="nv">$ </span>./configure <span class="o">&amp;&amp;</span> make
+<span class="nv">$ </span><span class="nb">sudo </span>make <span class="nb">install
+</span>or
+<span class="nv">$ </span><span class="nb">sudo </span>checkinstall
+It<span class="s1">'s simple to control.
+</span></code></pre></div></div>
+
+<h2 id="session">Session</h2>
+
+<hr />
+<p>change Session      prefix s
+leave Session       prefix d
+rename Session      prefix $
+————      ————</p>
+
+<h2 id="window">Window</h2>
+
+<hr />
+<p>new Window          prefix c
+change Window       prefix space
+close Window        prefix &amp;
+change by number    prefix number
+————        ————-</p>
+
+<h2 id="pane">Pane</h2>
+
+<hr />
+<p>change to next       prefix o
+view Pane number     prefix q
+| Pane               prefix “
+— Pane             prefix %
+Zoom Pane            prefix z
+————-        ————–</p>
+
+<h2 id="sun-dec--3-132835-cst-2017">Sun Dec  3 13:28:35 CST 2017</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tmux new <span class="nt">-s</span> session-name
+<span class="c"># 删除 session</span>
+C-a : kill-session <span class="nt">-t</span> session-name
+
+</code></pre></div></div>
+<p>session指的是按下tmux命令后 存在的连接便是session
+创建session
+tmux
+创建并指定session名字
+tmux new -s $session_name
+删除session
+Ctrl+b :kill-session
+临时退出session
+Ctrl+b d
+列出session
+tmux ls
+进入已存在的session
+tmux a -t $session_name
+删除所有session
+Ctrl+b :kill-server
+删除指定session
+tmux kill-session -t $session_name
+—-
+window在session里，可以有N个window，并且window可以在不同的session里移动
+创建window
+Ctrl+b +c
+删除window
+Ctrl+b &amp;
+下一个window
+Ctrl+b n
+上一个window
+Ctrl+b p
+重命名window
+Ctrl+b ,
+在多个window里搜索关键字
+Ctrl+b f
+在相邻的两个window里切换
+Ctrl+b l
+—-
+pane在window里，可以有N个pane，并且pane可以在不同的window里移动、合并、拆分
+创建pane
+横切split pane horizontal
+Ctrl+b ” (问号的上面，shift+’)
+竖切split pane vertical
+Ctrl+b % （shift+5）
+按顺序在pane之间移动
+Ctrl+b o
+上下左右选择pane
+Ctrl+b 方向键上下左右
+调整pane的大小
+Ctrl+b :resize-pane -U #向上
+Ctrl+b :resize-pane -D #向下
+Ctrl+b :resize-pane -L #向左
+Ctrl+b :resize-pane -R #向右
+在上下左右的调整里，最后的参数可以加数字 用以控制移动的大小，例如：
+Ctrl+b :resize-pane -D 50
+在同一个window里左右移动pane
+Ctrl+b { （往左边，往上面）
+Ctrl+b } （往右边，往下面）
+删除pane
+Ctrl+b x
+更换pane排版
+Ctrl+b “空格”
+移动pane至window
+Ctrl+b !
+移动pane合并至某个window
+Ctrl+b :join-pane -t $window_name
+显示pane编号
+Ctrl+b q
+按顺序移动pane位置
+Ctrl+b Ctrl+o
+—-
+其他：
+复制模式
+Ctrl+b [
+空格标记复制开始，回车结束复制。
+粘贴最后一个缓冲区内容
+Ctrl+b ]
+选择性粘贴缓冲区
+Ctrl+b =
+列出缓冲区目标
+Ctrl+b :list-buffer
+查看缓冲区内容
+Ctrl+b :show-buffer
+vi模式
+Ctrl+b :set mode-keys vi
+显示时间
+Ctrl+b t
+快捷键帮助
+Ctrl+b ? (Ctrl+b :list-keys)
+tmux内置命令帮助
+Ctrl+b :list-commands</p>
+
+<h2 id="sun-dec--3-154739-cst-2017">Sun Dec  3 15:47:39 CST 2017</h2>
+<p>apt-get install tmux
+sudo port install tmux
+sudo brew install tmux
+sudo yum install tmux
+其他系统直接安装 Tmux 的 tar 包，Tmux 依赖于 libevent 和 libevent-devel 包.
+配置 Tmux 安装完 Tmux 默认没有配置文件，需手动生成。/etc/tmux.conf 全局文件，～/.tmux.conf 用户环境文件</p>
+<h1 id="vim-tmuxconf">vim ~/.tmux.conf</h1>
+<p>set -g prefix ^g                        # <prefix> 激活控制台，(默认Ctrl+b)
+unbind ^b                               # 解绑 Ctrl+b
+set-option -g status-utf8 on            # 开启状态栏的UTF-8支持</prefix></p>
+<h1 id="cp-mode">cp mode</h1>
+<p>set-window-option -g mode-keys vi       # 复制模式中的默认键盘布局使用 vi
+bind h select-pane -L                   # h 等于向左移动光标
+bind j select-pane -D                   # j 向下移动光标
+bind k select-pane -U                   # k 向上移动光标
+bind l select-pane -R                   # l 向右移动光标
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+tmux 默认使用的是Ctrl+b，之所以改成Ctrl+g是因为Ctrl+b在 Bash 环境里是向左移动光标. 现在 tmux 和 vim 操作一样了，复制时候也可以用 h、j、k、l 来移动光标。
+使用 Tmux Tmux 完全依靠快捷键来使用它的功能，而刚才设置的Ctrl+g是这些功能的前提，例如打开一个时钟：Ctrl + g + t 按键的时候要先按Ctrl+g后松开Ctrl和g键后，快速按出t 打开 Tmux：
+Ctrl+g 后松开在按 t 会在终端里出现一个数字时钟
+说的是 tmux 的功能无非就是 Ctrl + g + 一些功能的键而已，所有的按键方式和上面的时钟例子一样。
+获取 Tmux 帮助 按 Ctrl + g + ? （问号等于：Shift + /）会出现 Tmux 的帮助信息, 信息中 ‘bind-key’ 说的就是 Ctrl + g, 或者直接 man tmux。
+命令</p>
+
+<p>tmux new -s myname 可以指定Session名
+[PREFIX-:] new -s 在tmux中创建一个会话
+tmux attach-session -t myname 重新连接此会话
+tmux attach
+tmux attach -t basic
+tmux a -t basic
+tmux list-session
+tmux ls
+[PREFIX-s] 在tmux中查看会话列表并切换
+tmux new-session <会话名>
+tmux attach-session -t <会话名>
+tmux rename-session -t <会话名>
+tmux choose-session -t <会话名>
+tmux kill-session -t <会话名>
+当你临时断开多个 tmux 会话时候，可以指定恢复某个会话：</会话名></会话名></会话名></会话名></会话名></p>
+
+<h1 id="tmux-ls---查看所有会话">tmux ls   #查看所有会话</h1>
+<p>0: 4 windows (created Tue Jan 22 00:42:16 2013) [177x48]
+1: 1 windows (created Tue Jan 22 00:51:30 2013) [177x48]
+1
+2
+3
+tmux a -t 0 恢复第一个会话
+快捷键</p>
+
+<ul>
+  <li>
+    <dl>
+      <dt>$ 重命名当前Session</dt>
+      <dt>d detach 分离会话</dt>
+      <dt>t big clock</dt>
+      <dt>? list shortcuts</dt>
+      <dd>prompt
+Tmux 常用功能 分割终端窗口</dd>
+    </dl>
+  </li>
+  <li>” 在光标当前所在窗口，横向分割出一个窗口</li>
+  <li>% 在光标当前所在窗口，竖向分割出一个窗口</li>
+  <li>h ………… ,跳转光标到左边的窗口</li>
+  <li>j ………… ,跳转光标到下边的窗口</li>
+  <li>k ………… ,跳转光标到上边的窗口</li>
+  <li>j ………… ,跳转光标到右边的窗口</li>
+  <li>! 关闭所有分割出来的窗口</li>
+  <li>x 关闭光标当前所在窗口。(或直接Ctrl+d)</li>
+  <li>{ 向前置换当前面板</li>
+  <li>} 向后置换当前面板</li>
+  <li>q 查询面板编号
+使用不同的窗口工作</li>
+</ul>
+
+<p>一个终端里开了多个小窗口，还是不够用？</p>
+<ul>
+  <li>c 创建一个新的窗口</li>
+  <li>p 切换到上一个窗口</li>
+  <li>n 切换到下一个窗口</li>
+  <li>f 列出所有窗口</li>
+  <li>w 列出目前所创建的窗口,能看到窗口编号,在按编号直接切换窗口，见图2</li>
+  <li>0-9 直接切换到指定编号的窗口</li>
+  <li>, 修改当前窗口名字,见图3</li>
+  <li>d 临时断开所有的会话，用命令# tmux attach 恢复会话</li>
+  <li>&amp; 关闭窗口之前，你需要确认一下
+把窗口分成许多面板</li>
+</ul>
+
+<p>有时候你在编辑器工作的同时，需要查看日志文件。在编辑的同时追踪日志真的很有帮助。Tmux可以让我们把窗口分成许多面板。举个例子，我们可以创建一个控制台监测我们的服务器，同时用编辑器构造复杂的开发环境，这样就能同时进行编译和调试了。
+tmux new -s panes</p>
+<ul>
+  <li>” 水平分割一个窗口 原来的</li>
+  <li>% 再竖直分割 原来的</li>
+  <li>方向键 在他们之间移动
+按住不放，再按方向键，可以实现panes之间大小的改变
+o swap panes
+q show pane numbers
+x kill pane
+break pane into window (e.g. to select text by mouse to copy)
+restore pane from window
+⍽ space - toggle between layouts
+q (Show pane numbers, when the numbers show up type the key to goto that pane)
+{ (Move the current pane left)
+} (Move the current pane right)
+z toggle pane zoom
+分割 原先未修改键位的分割方式是[PREFIX-%]和[PREFIX-“] 重新映射为</li>
+</ul>
+
+<p>[PREFIX-] / [PREFIX–]
+关闭一个面板, 要确认</p>
+
+<p>[PREFIX-x]
+或者
+exit [面板里执行]
+切换</p>
+
+<p>[PREFIX-hjkl] pane之间移动
+[Ctrl-hjkl] pane之间移动
+[Ctrl-] 最近使用两个窗口之间切换
+[PREFIX-q] 展示窗口数字并选择跳转
+[PREFIX-o] 循环切换
+大小调整</p>
+
+<p>[Ctrl-HJKL] pane大小调整
+[PREFIX-z] trigger暂时把窗口变大
+关闭及移动</p>
+
+<p>[PREFIX-x] 关闭当前pane, 需确认
+[PREFIX-}] 当前pane移到左边
+[PREFIX-{] 当前pane移到右边
+其他</p>
+
+<p>[PREFIX-!] 当前pane在新的window中打开
+[PREFIX-space] 会自动切换依次使用这些布局(几种窗口布局轮流切换)
+复制粘贴</p>
+
+<p>[PREFIX-[] 进入复制模式
+=&gt; 可以进行的操作
+space/v 开始选择
+Ctrl-v 整块选择
+hjkl 方向键移动
+w/b 向前向后移动一个单词
+fx/Fx 行内移动到下一个字符位置
+ctrl-b/f 在缓冲区里面翻页
+g/G 到缓冲区最顶/底端
+/ ? 向下, 向上查找
+n/N 查找后下一个, 上一个
+Enter/y 复制
+[PREFIX-]] 粘贴
+其他增强:</p>
+
+<h1 id="复制整个pane可见区域">复制整个pane可见区域</h1>
+<p>[PREFIX-:] capture-pane</p>
+<h1 id="查看缓冲区内容">查看缓冲区内容</h1>
+<p>[PREFIX-:] show-buffer</p>
+<h1 id="列出缓冲区列表">列出缓冲区列表</h1>
+<p>[PREFIX-:] list-buffers</p>
+<h1 id="从缓冲区列表选择并插入到当期面板">从缓冲区列表选择并插入到当期面板</h1>
+<p>[PREFIX-:] choose-buffer =&gt; 回车
+1
+2
+3
+4
+5
+6
+7
+8
+其他</p>
+
+<p>获得快捷键列表</p>
+
+<p>[PREFIX-?]</p>
+
+<p>进入命令模式</p>
+
+<p>[PREFIX-:]
+一些命令模式下的命令</p>
+<h1 id="新建窗口">新建窗口</h1>
+<p>new-window -n console</p>
+<h1 id="新建并执行命令">新建并执行命令</h1>
+<p>new-window -n processes “top”
+1
+2
+3
+4
+5
+6
+Tmuxinator</p>
+
+<p>Tmuxinator 是一个 Ruby 的 gem 包，可用于创建 Tmux 的会话。它的工作方式是先在配置文件中定义会话中的细节，然后用 1 条命令创建出这些会话
+gem install tmuxinator
+tmuxinator new project_a =&gt; ~/.tmuxinator/project_a.yml =&gt; 配置
+启动: tmuxinator start project_a
+可以别名: mux start project_a
+1
+2
+3
+4
+vim插件</p>
+
+<p>christoomey/vim-tmux-navigator, 安装更便捷的导航跳转
+看窗口历史记录 在小窗口做一些操作时候，输出内容太多，如何回滚呢？</p>
+
+<ul>
+  <li>PgUP 向上回滚</li>
+  <li>PgDn 向下翻滚
+在终端窗口里复制 在一个终端里分割了多个小窗口，你可能会在一个小窗口里复制一些代码或命令行到另外一个小窗口，这时你用小红点、鼠标、触摸板是无法胜任的。它把整个终端窗口当作是复制区域对象,而不隔离小窗口复制</li>
+</ul>
+
+<p>[ 进入复制模式，移动光标到要复制文本区域后，按空格键开始选择要复制的内容, 利用h、j、k、l、$、0等(和vim中操作一样)，按回车确认选中的内容。
+] 粘贴
+上面所介绍的是一些比较实用的功能，使用熟练在于 vim 的熟练应用. (控制键的快捷键按键组合方式：Ctrl+b前面也说过弊处，后来换成Ctrl+n发现在终端中不能向下翻命令，在改成Ctrl+m后，发现回车也用不了了。直接算了
+tmux clear-history
+github tmux tmux的一些个性化配置</p>
+
+<p>默认的tmux风格比较朴素甚至有些丑陋。如果希望做一些美化和个性化配置的话，建议使用gpakosz的tmux配置。它的本质是一个tmux配置文件，实现了以下功能：
+基于powerline的美化
+显示笔记本电池电量
+和Mac互通的剪切板
+和vim更相近的快捷键
+Ctrl + A 是备用的前缀，按两次可以实现跳到行首
+cd
+rm -rf .tmux
+git clone https://github.com/gpakosz/.tmux.git
+ln -s .tmux/.tmux.conf
+cp .tmux/.tmux.conf.local .
+1
+2
+3
+4
+5
+会话，窗口，面板</p>
+
+<p>根据tmux的定义，在开启了tmux服务器后，会首先创建一个会话，而这个会话则会首先创建一个窗口，其中仅包含一个面板；也就是说，这里看到的所谓终端控制台应该称作tmux的一个面板，虽然其使用方法与终端控制台完全相同。
+tmux使用C/S模型构建，主要包括以下单元模块：
+server服务器。输入tmux命令时就开启了一个服务器。
+session会话。一个服务器可以包含多个会话
+window窗口。一个会话可以包含多个窗口。
+pane面板。一个窗口可以包含多个面板。
+配置</p>
+
+<p>我们先来看一下几个配置，这些配置才是我离不开tmux的原因:-)。tmux的配置文件是~/.tmux.conf，这个文件可能不存在，你可以自己新建。下面开始配置，首先，有没有觉得tmux的前缀按起来太不方便了，ctrl与b键隔得太远，很多人把它映射成C+a，也就是在配置文件(~/.tmux.conf)中加入下面这条语句：
+设置前缀为Ctrl + a
+set -g prefix C-a
+1
+与此同时，取消默认的前缀按键：
+解除Ctrl+b 与前缀的对应关系
+unbind C-b
+1
+配置完以后，重启tmux起效，或者先按C+b，然后输入：，进入命令行模式，在命令行模式下输入：
+source-file ~/.tmux.conf
+你也可以跟我一样，在配置文件中加入下面这句话，以后改了只需要按前缀+r了。
+将r 设置为加载配置文件，并显示”reloaded!”信息
+bind r source-file ~/.tmux.conf \; display “Reloaded!”
+1
+关于前缀，很多人都喜欢改成Ctrl+a，不过我个人更喜欢Ctrl+x，如果你是vim用户，你一定懂的。还有就是面板的切换很不方便，需要先按前缀，再按方向键，还记得vim里面怎么切换各个面板的吗？tmux也可以，因为它支持映射。把前缀映射改成Ctrl+x，再加入如下几条语句，现在切换窗口就和vim一摸一样了，顿时觉得亲切了很多。
+upbind-key k select-pane -U#downbind-key j select-pane -D#leftbind-key h select-pane -L#rightbind-key l select-pane -R
+1
+上面的最后一条语句会更改C-x l的功能，我挺喜欢这个功能的，因为我们很时候都是在两个窗口或这两个面板中切换，所以我又加入如下语句
+select last window
+bind-key C-l select-window -l
+1
+现在我的l键可不能随便按了，Ctrl+x l是切换面板，Ctrl+x Ctrl+l切换窗口，Ctrl+l清屏。
+复制模式copy-mode</p>
+
+<p>前缀 [ 进入复制模式
+按 space 开始复制，移动光标选择复制区域
+按 Enter 复制并退出copy-mode。
+将光标移动到指定位置，按 PREIFX ] 粘贴
+如果把tmux比作vim的话，那么我们大部分时间都是处于编辑模式，我们复制的时候可不可以像vim一样移动呢？只需要在配置文件(~/.tmux.conf)中加入如下行即可。
+copy-mode 将快捷键设置为vi 模式
+setw -g mode-keys vi
+1
+会话</p>
+
+<p>C-x s 以菜单的方式查看并选择会话
+C-x :new-session 新建一个会话
+C-x d 退出并保存会话
+终端运行 tmux attach 返回会话
+命名会话
+tmux new -s session
+tmux new -s session -d #在后台建立会话tmux ls #列出会话tmux attach -t session #进入某个会话
+使当前pane 最大化</p>
+
+<p>从我用vim开始，就相信这世界上有些人比你自己还了解你自己想要什么，所以乔老爷子才能做出让世人尖叫的产品，所以我经常浏览高手的.vimrc 文件，我用了tmux不到3天就发现，它怎么不能最大化当前pane?就像vim里的ZommWinPlugin.vim插件一样，你按下某键，当前窗口 就最大化了，获得最大可视界面。当目前为止，就还没有发现我有需求而别人没有的，同样，已有前人找到的解决办法，方法如下：</p>
+<h1 id="zoom-pane---windowhttptmuxsvnsourceforgenetviewvctmuxtrunkexamplestmux-zoomshbind-z-run-tmux-zoom">zoom pane &lt;-&gt; window#http://tmux.svn.sourceforge.net/viewvc/tmux/trunk/examples/tmux-zoom.shbind ^z run “tmux-zoom”##</h1>
+<p>滚屏</p>
+
+<p>滚屏要进入copy-mode，即前缀+[，然后就可以用上下键来滚动屏幕，配置了vi快捷键模式，就可以像操作vi一样来滚动屏幕，非常的方便。退出直接按‘q’键即可。</p>
+
+<p>$x^2 = \frac{x + 1}{2}$</p>

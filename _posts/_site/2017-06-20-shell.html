@@ -1,0 +1,202 @@
+<h1 id="shell">Shell</h1>
+
+<h2 id="simple">Simple</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!</span><span class="nv">$ </span>                             <span class="c"># 代表上一个命令的最后一个字符串</span>
+<span class="nb">sudo</span> <span class="o">!!</span>                         <span class="c"># 以 root 执行上一个命令</span>
+<span class="o">!</span>xxx                            <span class="c"># 重复最近的一条命令</span>
+eg:
+<span class="nv">$ </span>vim ~/lotsd/blog/conf.json
+<span class="nv">$ </span><span class="o">!</span>vim or <span class="o">!</span>vi                   <span class="c"># 取决于最近的首字母</span>
+<span class="nb">cd</span> -                            <span class="c"># 回到上一次目录</span>
+&lt;Alt&gt; <span class="nb">.</span> or ESC <span class="nb">.</span>                <span class="c"># 获得上次命令行参数</span>
+^x^y                            <span class="c"># 替换上一条命令里的部分字符串</span>
+eg:
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'wanderful'</span>
+<span class="nv">$ </span>^a^o
+man ascii                       <span class="c"># 显示 ASCII 表</span>
+<span class="nb">date</span> <span class="nt">-d</span>@1499350189              <span class="c"># 时间戳转时间</span>
+<span class="nb">date</span> +%s                        <span class="c"># 时间戳</span>
+wget <span class="nt">--random-wait</span> <span class="nt">-r</span> <span class="nt">-p</span> <span class="nt">-e</span> <span class="nv">rebots</span><span class="o">=</span>off <span class="nt">-U</span> mozilla http://www.example.com <span class="c"># 网络镜像</span>
+curl ifconfig.me                <span class="c"># 查看外网的 IP</span>
+convert input.png <span class="nt">-gravity</span> NorthWest <span class="nt">-background</span> transparent <span class="nt">-extent</span> 720x200 output.png <span class="c"># 改变图片大小</span>
+gs <span class="nt">-dNOPAUSE</span> <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="nt">-sOUTPUTFILE</span><span class="o">=</span>output.pdf <span class="nt">-dBATCH</span> input1.pdf input2.pdf <span class="c"># 合并多个 pdf 到一个 pdf 文件</span>
+<span class="nb">echo</span> <span class="s2">"ls -l"</span> | at midnight      <span class="c"># 在特定时间运行命令</span>
+curl <span class="nt">-u</span> username <span class="nt">-silent</span> <span class="s2">"https://mail.google.com/mail/feed/atom"</span> | perl <span class="nt">-ne</span> <span class="s1">'print "\t" if /&lt;name&gt;/; print "$2\n" if /&lt;(title|name)&gt;(.*)&lt;\/\1&gt;/;'</span> <span class="c"># 检查你的 gmail 未读邮件</span>
+python <span class="nt">-m</span> SimpleHTTPServer      <span class="c"># 一句话实现 HTTP 服务 http://localhost:8000</span>
+<span class="nb">history</span> | <span class="nb">awk</span> <span class="s1">'{CMD[$2]++;count++;} END { for (a in CMD )print CMD[a] " " CMD[a]/count*100 "% " a }'</span> | <span class="nb">grep</span> <span class="nt">-v</span> <span class="s2">"./"</span> | column <span class="nt">-c3</span> <span class="nt">-s</span> <span class="s2">" "</span> <span class="nt">-t</span> | <span class="nb">sort</span> <span class="nt">-nr</span> | <span class="nb">nl</span> | <span class="nb">head</span> <span class="nt">-n10</span> <span class="c"># 输出你最常用的十个命令</span>
+<span class="nb">history</span>|awk <span class="s1">'{print $2}'</span>|awk <span class="s1">'BEGIN {FS="|"} {print $1}'</span>|sort|uniq <span class="nt">-c</span>|sort <span class="nt">-rn</span>|head <span class="nt">-10</span> <span class="c"># 输出你最常用的十个命令</span>
+<span class="nv">$ </span><span class="nb">du</span> <span class="nt">-s</span> <span class="k">*</span> | <span class="nb">sort</span> <span class="nt">-n</span> | <span class="nb">tail</span>      <span class="c"># 列出当前目录里最大的10个文件</span>
+<span class="nv">$ </span><span class="nb">cp</span> <span class="nt">-av</span> 原文件或原目录 新文件或新目录 <span class="c"># 复制文件或者目录</span>
+<span class="nv">$ </span> <span class="nb">cat</span> /etc/vsftpd.conf |grep <span class="nt">-v</span> ^#    <span class="c"># 不显示以＃开头的行</span>
+<span class="nv">$ </span><span class="nb">nl </span>文件名                     <span class="c"># 带行号显示文件的内容</span>
+<span class="nv">$ </span><span class="nb">cat</span> <span class="nt">-n</span> 文件名                 <span class="c"># 带行号显示文件的内容</span>
+<span class="nv">$ </span>file filename                 <span class="c"># 查看文件类型</span>
+<span class="nv">$ </span><span class="nb">echo </span>xxx.xxx.rmvb |sed <span class="s1">'s/.*\(\..*$\)/\1/'</span>  <span class="c"># 获得文件的后缀名</span>
+<span class="nv">$ </span><span class="nb">echo </span>xxx.xxx.rmvb |sed <span class="s1">'s/\(.*\)\..*$/\1/'</span>  <span class="c"># 去除文件的后缀名</span>
+<span class="nv">$ </span><span class="nb">tail</span> <span class="nt">-6</span> xxx                   <span class="c"># 显示xxx文件倒数6行的内容</span>
+<span class="nv">$ </span><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'5,10p'</span> /var/log/apache2/access.log  <span class="c"># 查看文件中指定行范围的内容 如第五行（含）到第10行（含）：</span>
+<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-d</span> <span class="k">*</span>/ 或 <span class="nb">echo</span> <span class="k">*</span>/           <span class="c"># 查看当前目录的子目录</span>
+<span class="nv">$ </span>find <span class="nb">.</span> <span class="nt">-mmin</span> +120 <span class="nt">-mmin</span> <span class="nt">-480</span> <span class="nt">-exec</span> more <span class="o">{}</span> <span class="se">\;</span>   <span class="c"># 显示当前目录指定时间范围的文件如2小时到8小时之内：</span>
+<span class="nv">$ </span><span class="nb">cut</span> <span class="nt">-c</span> 5- a.py                <span class="c"># 去除文件中的行号</span>
+<span class="nv">$ </span><span class="nb">grep</span> <span class="nt">-l</span> <span class="nt">-r</span> 字符串 路径　#显示内容包含字符串的文件名
+<span class="nv">$ </span><span class="nb">grep</span> <span class="nt">-L</span> <span class="nt">-r</span> 字符串 路径　#显示内容不包含字符串的文件名
+<span class="nv">$ </span>find <span class="nb">.</span> <span class="nt">-path</span> <span class="s1">'./cache'</span> <span class="nt">-prune</span> <span class="nt">-o</span> <span class="nt">-name</span> <span class="s2">"*.php"</span> <span class="nt">-exec</span> <span class="nb">grep</span> <span class="nt">-l</span> <span class="s2">"date_cache[</span><span class="nv">$format</span><span class="s2">]['lang']"</span> <span class="o">{}</span> <span class="se">\;</span> <span class="c">#显示当前目录下不包含cache目录的所有含有“date_cache[$format]['lang']”字符串的php文件。</span>
+<span class="nv">$ </span>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="se">\*</span>.php <span class="nt">-exec</span> <span class="nb">grep</span> <span class="nt">-l</span> <span class="s2">"info"</span> <span class="o">{}</span> <span class="se">\;</span>
+<span class="nv">$ </span>rename .rm .rmvb <span class="k">*</span>.rm         <span class="c"># 把所有文件的後辍由rm改为rmvb</span>
+<span class="nv">$ </span>rename <span class="s1">'tr/A-Z/a-z/'</span> <span class="k">*</span>        <span class="c"># 把所有文件名中的大写改为小写</span>
+<span class="c"># 去掉文件中的^M</span>
+<span class="c">#注意不要使用同样的文件名，会清空掉原文件</span>
+<span class="nv">$ </span><span class="nb">cat </span>filename | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s2">"^M"</span> <span class="o">&gt;</span> newfile<span class="p">;</span>
+    或者
+<span class="nv">$ </span><span class="nb">sed</span> <span class="nt">-e</span> <span class="s2">"s/^M//g"</span> filename <span class="o">&gt;</span> newfile<span class="p">;</span>
+    或者
+ex <span class="s2">"+:%s/[Ctrl+V][Enter]//g"</span> <span class="s2">"+:wq"</span>  filename <span class="c">#直接修改文件</span>
+<span class="c"># 批量修改文件和目录的权限</span>
+<span class="c"># 批量修改src目录下所有文件的权限为644：</span>
+<span class="nv">$ </span>find src <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">chmod </span>644 <span class="o">{}</span> <span class="se">\;</span>
+批量修改src目录下的所有子目录的权限为755：
+<span class="nv">$ </span>find src <span class="nt">-type</span> d <span class="nt">-exec</span> <span class="nb">chmod </span>755 <span class="o">{}</span> <span class="se">\;</span>
+<span class="c"># 删除特殊文件名的文件</span>
+<span class="c"># 如文件名：–help.txt ：</span>
+<span class="nv">$ </span><span class="nb">rm</span> <span class="nt">--</span> <span class="nt">--help</span>.txt 或者 <span class="nb">rm</span> ./--help.txt
+<span class="c"># 删除当前目录里面所有的.svn目录</span>
+<span class="nv">$ </span>find <span class="nb">.</span> <span class="nt">-name</span> .svn <span class="nt">-type</span> d <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-fr</span> <span class="o">{}</span> <span class="se">\;</span>
+<span class="c"># 查找删除不以java和xml结尾，并7天没有使用的文件</span>
+<span class="nv">$ </span>find <span class="nb">.</span> <span class="o">!</span> <span class="nt">-name</span> <span class="k">*</span>.java <span class="o">!</span> <span class="nt">-name</span> ‘<span class="k">*</span>.xml’ <span class="nt">-atime</span> +7 <span class="nt">-exec</span> <span class="nb">rm</span> <span class="o">{}</span> <span class="se">\;</span>
+<span class="c"># 查找目录下所有有包含abcd文字的文本文件，并替换为xyz</span>
+<span class="nv">$ </span><span class="nb">grep</span> <span class="nt">-rIl</span> <span class="s2">"abcd"</span> ./## <span class="nt">--color</span><span class="o">=</span>never | xargs <span class="nb">sed</span> <span class="nt">-i</span> <span class="s2">"s/abcd/xyz/g"</span> <span class="c">#注意grep的一个参数是大写的i，一个参数是小写的L</span>
+<span class="c"># 服务和进程</span>
+<span class="c"># 列出头十个最耗内存的进程</span>
+ps aux | <span class="nb">sort</span> <span class="nt">-nk</span> +4 | <span class="nb">tail</span>
+<span class="c"># 列出本机进程监听的端口号</span>
+netstat <span class="nt">-tlnp</span>
+<span class="c"># 实时查看本机网络服务的活动状态</span>
+lsof <span class="nt">-i</span>
+<span class="c"># 陈皓注： netstat -anop 可以显示侦听在这个端口号的进程 伟洲注： lsof -i:&lt;端口号&gt; 可以查看某个端口号被什么程序占用</span>
+<span class="c"># 实时监控并过滤log是否出现了某条记录</span>
+<span class="nv">$ </span><span class="nb">tail</span> <span class="nt">-f</span> /path/to/file.log | <span class="nb">sed</span> <span class="s1">'/^Finished: SUCCESS$/ q'</span>
+<span class="c"># 当file.log里出现Finished: SUCCESS时候就退出tail，这个命令用于实时监控并过滤log是否出现了某条记录。</span>
+<span class="c"># 在远程机器上运行一段脚本</span>
+<span class="nv">$ </span>ssh user@server bash &lt; /path/to/local/script.sh
+<span class="c"># 在远程机器上运行一段脚本。这条命令最大的好处就是不用把脚本拷到远程机器上。</span>
+<span class="c"># 比较一个远程文件和一个本地文件</span>
+<span class="nv">$ </span>ssh user@host <span class="nb">cat</span> /path/to/remotefile | diff /path/to/localfile -
+<span class="c"># 后台运行一段不终止的程序，并可以随时查看它的状态</span>
+<span class="nv">$ </span>screen <span class="nt">-d</span> <span class="nt">-m</span> <span class="nt">-S</span> some_name ping my_router
+
+</code></pre></div></div>
+<dl>
+  <dt>ref</dt>
+  <dd>
+    <ul>
+      <li><a href="http://www.hahack.com/wiki/shell-snippets.html">www.hahack.com</a></li>
+    </ul>
+  </dd>
+</dl>
+
+<h2 id="complex">Complex</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 删除 0 字节文件</span>
+find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> 0 <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-rf</span> <span class="o">{}</span> <span class="se">\;</span>
+find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> 0 <span class="nt">-delete</span>
+<span class="c"># 内存的大小</span>
+free <span class="nt">-m</span> |grep <span class="s2">"Mem"</span> | <span class="nb">awk</span> <span class="s1">'{print $2}'</span>
+<span class="c"># 查看 80 端口的连接，并排序</span>
+netstat <span class="nt">-an</span> <span class="nt">-t</span> | <span class="nb">grep</span> <span class="s2">":80"</span> | <span class="nb">grep </span>ESTABLISHED | <span class="nb">awk</span> <span class="s1">'{printf "%s %s\n",$5,$6}'</span> | <span class="nb">sort</span>
+<span class="c"># CPU 数量</span>
+<span class="nb">cat</span> /proc/cpuinfo |grep <span class="nt">-c</span> processor
+<span class="c"># CPU 负载</span>
+<span class="nb">cat</span> /proc/loadavg
+<span class="c"># 内存空间</span>
+free
+<span class="c"># 磁盘空间</span>
+<span class="nb">df</span> <span class="nt">-h</span>
+<span class="c"># 文件占用排序</span>
+<span class="nb">du</span> <span class="nt">-cks</span> <span class="k">*</span> | <span class="nb">sort</span> <span class="nt">-rn</span> | <span class="nb">head</span> <span class="nt">-n</span> 10
+<span class="c"># 磁盘 I/O 负载</span>
+iostat <span class="nt">-x</span> 1 2
+<span class="c"># 网络负载</span>
+sar <span class="nt">-n</span> DEV
+<span class="c"># 网络错误</span>
+netstat <span class="nt">-i</span> <span class="nb">cat</span> /proc/net/dev
+<span class="c"># 网络连接数目</span>
+netstat <span class="nt">-an</span> | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^(tcp)"</span> | <span class="nb">cut</span> <span class="nt">-c</span> 68- | <span class="nb">sort</span> | <span class="nb">uniq</span> <span class="nt">-c</span> | <span class="nb">sort</span> <span class="nt">-n</span>
+<span class="c"># 进程总数</span>
+ps aux | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="c"># 进程树</span>
+ps aufx
+<span class="c"># 可运行进程数</span>
+vmwtat 1 5
+<span class="c"># 查看 DNS Server 工作是不是正常，以 61.139.2.69</span>
+dig www.baidu.com @61.139.2.69
+<span class="c"># 检查当前登陆的用户个数</span>
+<span class="nb">who</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="c"># 日志查看，搜索</span>
+<span class="nb">cat</span> /var/log/syslog
+<span class="c"># 内核日志</span>
+dmesg
+<span class="c"># 打开的句柄数</span>
+lsof | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="c"># 网络抓包，直接输出摘要信息到文件</span>
+tcpdump <span class="nt">-c</span> 10000 <span class="nt">-i</span> eth0 <span class="nt">-n</span> dst port 80 <span class="o">&gt;</span> root/pkts
+<span class="c"># 最常用的 10 个命令</span>
+<span class="nb">history</span> | <span class="nb">awk</span> <span class="s1">'{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}'</span> | <span class="nb">grep</span> <span class="nt">-v</span> <span class="s2">"./"</span> | column <span class="nt">-c3</span> <span class="nt">-s</span> <span class="s2">" "</span> <span class="nt">-t</span> | <span class="nb">sort</span> <span class="nt">-nr</span> | <span class="nb">nl</span> |  <span class="nb">head</span> <span class="nt">-n10</span>
+</code></pre></div></div>
+<dl>
+  <dt>ref</dt>
+  <dd>
+    <ul>
+      <li><a href="http://blog.jobbole.com/48173/">jobbole</a></li>
+    </ul>
+  </dd>
+  <dt>Attention</dt>
+  <dd>
+    <ul>
+      <li><code class="highlighter-rouge">cp</code> 注意 <code class="highlighter-rouge">cp -i 1.txt note/</code> and <code class="highlighter-rouge">cp - i 1.txt note</code></li>
+      <li><code class="highlighter-rouge">cp -i</code> <code class="highlighter-rouge">-i</code> ask you overwirte file,it’s safe.</li>
+      <li><code class="highlighter-rouge">chmod +x</code> <code class="highlighter-rouge">+x</code> 使文件有可执行权限.</li>
+      <li>not executable format file(不是可执行的文件类型)</li>
+      <li>新建(fork)一个进程</li>
+      <li>source echo.sh (source may change environment variable(变量).)
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">cat </span>echo.sh
+  <span class="c">#!/bin/sh</span>
+  <span class="nb">cd</span> /tmp
+  <span class="nb">echo</span> <span class="s2">"hello world!"</span>
+  <span class="nv">$ </span><span class="nb">pwd</span>
+  /home/lotsd/lotsd/projects/Bash
+  <span class="nv">$ </span><span class="nb">sudo chmod</span> +x echo.sh
+  <span class="nv">$ </span><span class="nb">source </span>echo.sh
+  <span class="nv">$ </span><span class="nb">pwd</span>
+  /tmp
+</code></pre></div>        </div>
+      </li>
+      <li>运行 Linux program’s 3 ways
+        <ul>
+          <li>使文本具有可执行权限，直接运行。<code class="highlighter-rouge">./echo.sh</code></li>
+          <li>直接调用命令解释器执行程序。eg: <code class="highlighter-rouge">$ bash echo.sh</code></li>
+          <li>使用 source 执行文件。</li>
+        </ul>
+      </li>
+      <li>Linux 可执行的命令有 3 种：
+        <ul>
+          <li>内建命令</li>
+          <li>shell 函数</li>
+          <li>外部命令</li>
+        </ul>
+      </li>
+      <li>variable in Linux shell all are String, while variable is number can be operated(运算).</li>
+      <li>variable_name=value(值), <code class="highlighter-rouge">=</code> both sides not spacing.</li>
+      <li>$dir_name is abbreviated form (简写形式) ${dir_name}</li>
+      <li>single quotes represent strong reference.(单引号代表强引用)</li>
+      <li>double quotes represent weak reference.
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ var</span><span class="o">=</span>34
+  <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$var</span><span class="s2">"</span>
+  34
+  <span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'$var'</span>
+  <span class="nv">$var</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </dd>
+</dl>

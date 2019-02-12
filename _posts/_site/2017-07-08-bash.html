@@ -1,0 +1,89 @@
+<h1 id="bash">Bash</h1>
+
+<dl>
+  <dt>高效编写 Bash 脚本的 10 个技巧</dt>
+  <dd>
+    <ul>
+      <li>脚本里多写注释
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># $1 是变量</span>
+</code></pre></div>        </div>
+      </li>
+      <li>运行失败时退出
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nb">set</span> <span class="nt">-o</span> errexit
+  <span class="c"># or</span>
+  <span class="nb">set</span> <span class="nt">-e</span>
+</code></pre></div>        </div>
+      </li>
+      <li>Bash 未声明变量时退出
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nb">set</span> <span class="nt">-o</span> nounset
+  <span class="c"># or</span>
+  <span class="nb">set</span> <span class="nt">-u</span>
+</code></pre></div>        </div>
+      </li>
+      <li>使用双引号来引用变量
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c">#!/bin/bash</span>
+  <span class="c"># 若命令失败让脚本退出</span>
+  <span class="nb">set</span> <span class="nt">-o</span> errexit
+  <span class="c"># 若未设置的变量被使用让脚本退出</span>
+  <span class="nb">set</span> <span class="nt">-o</span> nounset
+  <span class="nb">echo</span> <span class="s2">"Names without double quotes"</span>
+  <span class="nb">echo
+  </span><span class="nv">names</span><span class="o">=</span><span class="s2">"Tecmint FOSSMint Linusay"</span>
+  <span class="k">for </span>name <span class="k">in</span> <span class="nv">$names</span><span class="p">;</span> <span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+  <span class="k">done
+  </span><span class="nb">echo
+  echo</span> <span class="s2">"Names with double quotes"</span>
+  <span class="nb">echo
+  </span><span class="k">for </span>name <span class="k">in</span> <span class="s2">"</span><span class="nv">$names</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
+  </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+  <span class="k">done
+  </span><span class="nb">exit </span>0
+</code></pre></div>        </div>
+      </li>
+      <li>在脚本里使用函数
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">function </span>check_root<span class="o">(){</span>
+    command1<span class="p">;</span>
+    command2<span class="p">;</span>
+  <span class="o">}</span>
+  <span class="c"># or</span>
+  check_root<span class="o">(){</span>
+    command1<span class="p">;</span>
+    command2<span class="p">;</span>
+  <span class="o">}</span>
+  <span class="c"># 写成单行，每个命令后都要用终止符号:</span>
+  check_root<span class="o">(){</span> command1<span class="p">;</span> command2<span class="p">;</span> <span class="o">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li>字符串比较时用 <code class="highlighter-rouge">=</code> 而不是 <code class="highlighter-rouge">==</code>
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  value1 <span class="o">=</span> <span class="s2">"tec.com"</span>
+  value2 <span class="o">=</span> <span class="s2">"font.com"</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$value1</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"</span><span class="nv">$value2</span><span class="s2">"</span> <span class="o">]</span>
+</code></pre></div>        </div>
+      </li>
+      <li>用 <code class="highlighter-rouge">$(command)</code> 而不是老旧的 <code class="highlighter-rouge">command</code> 来替换
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  user <span class="o">=</span> <span class="s1">'echo "$UID"'</span>
+  user <span class="o">=</span> <span class="k">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$UID</span><span class="s2">"</span><span class="k">)</span>
+</code></pre></div>        </div>
+      </li>
+      <li>用 readonly 来声明静态变量
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nb">readonly </span>passwd_file <span class="o">=</span> <span class="s2">"/etc/passwd"</span>
+  <span class="nb">readonly </span>group_file <span class="o">=</span> <span class="s2">"/etc/group"</span>
+</code></pre></div>        </div>
+      </li>
+      <li>环境变量用大写，自定义变量用小写
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  nikto_file <span class="o">=</span> <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/Downloads/Compressed/program/nino.pl"</span>
+  perl <span class="s2">"</span><span class="nv">$nikto_file</span><span class="s2">"</span> <span class="nt">-h</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+</code></pre></div>        </div>
+      </li>
+      <li>总是对长脚本进行调试。</li>
+    </ul>
+  </dd>
+  <dt>ref</dt>
+  <dd>
+    <ul>
+      <li><a href="http://blog.jobbole.com/111514/">伯乐在线</a></li>
+    </ul>
+  </dd>
+</dl>
+
