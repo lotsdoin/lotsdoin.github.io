@@ -1,79 +1,75 @@
-<h1 id="systemd">Systemd</h1>
-
 <ul>
-  <li>systemd is a set of command.
-```bash
-$ sudo /etc/init.d/apache2 start
-$ service apache2 start
-    <h1 id="systemd-instead-of-init-the-pid-of-systemd-is-1-other-processes-are-children"><code class="highlighter-rouge">systemd</code> instead of <code class="highlighter-rouge">init</code>, the PID of <code class="highlighter-rouge">systemd</code> is 1, other processes are children.</h1>
-    <p>$ systemctl –version</p>
-    <h1 id="systemd-229">systemd 229</h1>
-    <h1 id="pam-audit-selinux-ima-apparmor-smack-sysvinit-utmp-libcryptsetup-g-crypt-gnutls-acl-xz--lz4-seccomp-blkid-elfutils-kmod--idn">+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +G# CRYPT +GNUTLS +ACL +XZ -LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD -IDN</h1>
-    <h1 id="重启系统">重启系统</h1>
-    <p>$ sudo systemctl reboot</p>
-  </li>
+  <li>systemd is a set of command.</li>
 </ul>
 
-<h1 id="关闭系统切断电源">关闭系统，切断电源</h1>
-<p>$ sudo systemctl poweroff</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo</span> /etc/init.d/apache2 start
+<span class="nv">$ </span>service apache2 start
+<span class="c">## `systemd` instead of `init`, the PID of `systemd` is 1, other processes are children.</span>
+<span class="nv">$ </span>systemctl <span class="nt">--version</span>
+<span class="c"># systemd 229</span>
+<span class="c">## +PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +G# CRYPT +GNUTLS +ACL +XZ -LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD -IDN</span>
+<span class="c">## 重启系统</span>
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl reboot
 
-<h1 id="cpu停止工作">CPU停止工作</h1>
-<p>$ sudo systemctl halt</p>
+<span class="c">## 关闭系统，切断电源</span>
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl poweroff
 
-<h1 id="暂停系统">暂停系统</h1>
-<p>$ sudo systemctl suspend</p>
+<span class="c">## CPU停止工作</span>
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl halt
 
-<h1 id="让系统进入冬眠状态">让系统进入冬眠状态</h1>
-<p>$ sudo systemctl hibernate</p>
+<span class="c">## 暂停系统</span>
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">suspend</span>
 
-<h1 id="让系统进入交互式休眠状态">让系统进入交互式休眠状态</h1>
-<p>$ sudo systemctl hybrid-sleep</p>
+<span class="c">## 让系统进入冬眠状态</span>
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl hibernate
 
-<h1 id="启动进入救援状态单用户状态">启动进入救援状态（单用户状态）</h1>
-<p>$ sudo systemctl rescue</p>
-<h1 id="查看启动耗时">查看启动耗时</h1>
-<p>$ systemd-analyze</p>
+<span class="c">## 让系统进入交互式休眠状态</span>
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl hybrid-sleep
 
-<h1 id="查看每个服务的启动耗时">查看每个服务的启动耗时</h1>
-<p>$ systemd-analyze blame</p>
+<span class="c">## 启动进入救援状态（单用户状态）</span>
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl rescue
+<span class="c">## 查看启动耗时</span>
+<span class="nv">$ </span>systemd-analyze
 
-<h1 id="显示瀑布状的启动过程流">显示瀑布状的启动过程流</h1>
-<p>$ systemd-analyze critical-chain</p>
+<span class="c">## 查看每个服务的启动耗时</span>
+<span class="nv">$ </span>systemd-analyze blame
 
-<h1 id="显示指定服务的启动流">显示指定服务的启动流</h1>
-<p>$ systemd-analyze critical-chain atd.service</p>
+<span class="c">## 显示瀑布状的启动过程流</span>
+<span class="nv">$ </span>systemd-analyze critical-chain
 
-<h1 id="显示当前主机的信息">显示当前主机的信息</h1>
-<p>$ hostnamectl</p>
+<span class="c">## 显示指定服务的启动流</span>
+<span class="nv">$ </span>systemd-analyze critical-chain atd.service
 
-<h1 id="设置主机名">设置主机名。</h1>
-<p>$ sudo hostnamectl set-hostname rhel7</p>
+<span class="c">## 显示当前主机的信息</span>
+<span class="nv">$ </span>hostnamectl
 
-<h1 id="查看本地化设置">查看本地化设置</h1>
-<p>$ localectl</p>
+<span class="c">## 设置主机名。</span>
+<span class="nv">$ </span><span class="nb">sudo </span>hostnamectl set-hostname rhel7
 
-<h1 id="设置本地化参数">设置本地化参数。</h1>
-<p>$ sudo localectl set-locale LANG=en_GB.utf8
-$ sudo localectl set-keymap en_GB</p>
+<span class="c">## 查看本地化设置</span>
+<span class="nv">$ </span>localectl
 
-<h1 id="查看当前时区设置">查看当前时区设置</h1>
-<p>$ timedatectl</p>
+<span class="c">## 设置本地化参数。</span>
+<span class="nv">$ </span><span class="nb">sudo </span>localectl set-locale <span class="nv">LANG</span><span class="o">=</span>en_GB.utf8
+<span class="nv">$ </span><span class="nb">sudo </span>localectl set-keymap en_GB
 
-<h1 id="显示所有可用的时区">显示所有可用的时区</h1>
-<p>$ timedatectl list-timezones</p>
-<h1 id="设置当前时区">设置当前时区</h1>
-<p>$ sudo timedatectl set-timezone America/New_York
-$ sudo timedatectl set-time YYYY-MM-DD
-$ sudo timedatectl set-time HH:MM:SS</p>
+<span class="c">## 查看当前时区设置</span>
+<span class="nv">$ </span>timedatectl
 
-<h1 id="列出当前session">列出当前session</h1>
-<p>$ loginctl list-sessions</p>
+<span class="c">## 显示所有可用的时区</span>
+<span class="nv">$ </span>timedatectl list-timezones
+<span class="c">## 设置当前时区</span>
+<span class="nv">$ </span><span class="nb">sudo </span>timedatectl set-timezone America/New_York
+<span class="nv">$ </span><span class="nb">sudo </span>timedatectl set-time YYYY-MM-DD
+<span class="nv">$ </span><span class="nb">sudo </span>timedatectl set-time HH:MM:SS
 
-<h1 id="列出当前登录用户">列出当前登录用户</h1>
-<p>$ loginctl list-users</p>
+<span class="c">## 列出当前session</span>
+<span class="nv">$ </span>loginctl list-sessions
 
-<h1 id="列出显示指定用户的信息">列出显示指定用户的信息</h1>
-<p>$ loginctl show-user ruanyf</p>
+<span class="c">## 列出当前登录用户</span>
+<span class="nv">$ </span>loginctl list-users
 
-<p>```</p>
+<span class="c">## 列出显示指定用户的信息</span>
+<span class="nv">$ </span>loginctl show-user ruanyf
+</code></pre></div></div>
 
