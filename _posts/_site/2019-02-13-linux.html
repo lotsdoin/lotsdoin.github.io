@@ -1,0 +1,29 @@
+<h2 id="压缩">压缩</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># compress:</span>
+compress <span class="nt">-c</span> demo <span class="o">&gt;</span> demo.Z
+zcat demo.Z <span class="o">&gt;</span> demo
+
+<span class="c"># gzip:</span>
+<span class="nb">gzip</span> <span class="nt">-c</span> demo <span class="o">&gt;</span> demo.gz
+zcat demo.gz <span class="o">&gt;</span> demo
+
+<span class="c"># bzip2:</span>
+bzip2 <span class="nt">-k</span> demo
+bzip2 <span class="nt">-k</span> <span class="nt">-d</span> demo.bz2
+
+<span class="c"># xz:(-k means keep the input files)</span>
+xz <span class="nt">-k</span> demo
+xz <span class="nt">-k</span> <span class="nt">-d</span> demo.xz
+
+<span class="c"># tar:</span>
+<span class="nb">tar</span> <span class="nt">-czvf</span> demo.tar demo
+<span class="nb">tar</span> <span class="nt">-xzvf</span> demo.tar
+
+
+</code></pre></div></div>
+
+<h2 id="磁盘">磁盘</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fdisk <span class="nt">-l</span> /dev/sda
+</code></pre></div></div>
